@@ -2,9 +2,18 @@ import React from 'react';
 import { ErrorField, InputChange } from "../../app/App.d";
 
 
+export interface LoginData {
+    email:string;
+    password:string;
+}
+
 export interface UserLoginDT {
     email:string;
-    pswrd:string;
+    password:string;
+    salutation:string;
+    firstName:string;
+    lastName:string;
+    isAuthenticated:boolean|null;
     token:string;
 }
 
