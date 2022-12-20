@@ -5,7 +5,7 @@ import { InputFieldProps } from './InputField.d';
 const InputField = (props: InputFieldProps) => {
     return (
         <React.Fragment>
-            <FormControl id={props.id}>
+            <FormControl id={props.id} style={props.inputFieldContainerStyle}>
                 <FormLabel id={`${props.id}-label`}>
                     <Typography component='span' variant='body1'>{props.label}</Typography>
                 </FormLabel>
