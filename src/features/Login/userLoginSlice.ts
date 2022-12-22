@@ -11,7 +11,7 @@ import { UserLoginState, LoginData } from "./userLogin.d";
     salutation:"",
     firstName:"",
     lastName:"",
-    token: "",
+    usr_token: "",
     isAuthenticated:null,
     errorField: [],
     
@@ -30,7 +30,10 @@ export const handleUserLogin = createAsyncThunk<any,any,any>(
                 method:'POST',
                 body:JSON.stringify(data), 
                 headers:{"Content-Type":"application/json"}
-            });
+            })/*.then(response => {
+                if(response.ok) return response.json();
+                return response.json().then(response=>{throw new Error(response.error)})
+            })*/;
 
             const jsonResp = await response.json();
             
@@ -42,14 +45,15 @@ export const handleUserLogin = createAsyncThunk<any,any,any>(
 
             return {
                 email: jsonResp.email,
-                usr_token: jsonResp.usr_token,
+                usr_token: jsonResp.token,
                 isAuthenticated:true,
             }
             
         } catch (error) {
+            console.error('Error ocurred while trying to login: '+error);
             console.log(error);
             localStorage.removeItem('budman_user_token');
-            return {email:null, password:null, token:null, isAuthenticated:false }; 
+            return {email:null, password:null, usr_token:null, isAuthenticated:false }; 
         }
     });
 
@@ -70,7 +74,17 @@ export const userLoginSlice = createSlice({
         builder
             .addCase(handleUserLogin.fulfilled, (state:UserLoginState, action:PayloadAction<any>) =>{
                 const {email, usr_token, isAuthenticated} = action.payload;
-                console.log("Response for handleUserLogin..." + action.payload);
+                console.log("FULFILLED Response for handleUserLogin..." + action.payload);
+                console.log(action.payload);
+                state.usr_token=action.payload.usr_token;
+            state.isAuthenticated=action.payload.isAuthenticated;
+        })
+        .addCase(handleUserLogin.rejected, (state:UserLoginState, action:PayloadAction<any>) =>{
+            const {email, usr_token, isAuthenticated} = action.payload;
+            console.log("REJECTED Response for handleUserLogin..." + action.payload);
+            console.log(action.payload);
+            state.usr_token=action.payload.usr_token;
+            state.isAuthenticated=action.payload.isAuthenticated;
         })
 
 

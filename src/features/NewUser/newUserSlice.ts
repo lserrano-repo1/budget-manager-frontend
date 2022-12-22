@@ -8,7 +8,7 @@ const initialState:NewUserState ={
     lastName: '',
     email: '',
     password: '',
-    token: '',
+    usr_token: '',
     errorField: []
 };
 
@@ -42,7 +42,7 @@ function getNewValues(field:string, state:NewUserState, value:string){
             state.password=value;
             break;
         case 'token-text-field':
-            state.token=value;
+            state.usr_token=value;
             break;
     }
 };

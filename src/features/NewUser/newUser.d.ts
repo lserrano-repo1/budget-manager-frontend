@@ -7,7 +7,7 @@ export interface NewUserDT{
     lastName:string,
     email:string,
     password:string,
-    token:string,
+    usr_token:string,
 }
 
 export interface NewUserState extends NewUserDT{

@@ -14,7 +14,7 @@ export interface UserLoginDT {
     firstName:string;
     lastName:string;
     isAuthenticated:boolean|null;
-    token:string;
+    usr_token:string;
 }
 
 export interface UserLoginState extends UserLoginDT {

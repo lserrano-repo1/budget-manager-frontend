@@ -1,7 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { useAppDispatch } from '../../app/hooks';
-import { Button, Grid, Link, Typography, FormControl, Box } from '@mui/material';
+import {
+    Button,
+    Grid,
+    Link,
+    Typography,
+    FormControl,
+    Box,
+} from '@mui/material';
 import InputField from '../../component/InputField/InputField';
 import BaseLayout from '../../component/Layout/BaseLayout';
 import { handleInputValue, handleUserLogin } from './userLoginSlice';
@@ -19,32 +26,25 @@ const UserLoginForm = (props: UserLoginProps) => {
         navigate('/', { replace: true });
     };
 
-    const goToLogin =()=>{
-        console.log('Attempting to login...');
-    }
-
-    const goToCreateNewUser=()=>{
+    const goToCreateNewUser = () => {
         console.log('Redirecting to register a new user...');
-        navigate('/newuser',{replace:true});
-    }
+        navigate('/newuser', { replace: true });
+    };
 
+    const goToLogin = (/*e: any*/) => {
+        console.log('Attempting to login...');
+        /*e.preventDefault();*/
+        console.info('Submitting login information');
+       
 
-    const handleSubmitAction = (e:any) => {
-            e.preventDefault();
-            console.info("Submitting login information");
-            alert('submit');
-
-            const data:LoginData = {
-                email: props.login.email,
-                password: props.login.password
-            }
-
-
-            dispatch(handleUserLogin(data));
+        const data: LoginData = {
+            email: props.login.email,
+            password: props.login.password,
         };
-    
-    
-    
+
+        dispatch(handleUserLogin(data));
+    };
+
     return (
         <BaseLayout>
             <Grid
@@ -87,8 +87,8 @@ const UserLoginForm = (props: UserLoginProps) => {
                     </div>
                 </FormControl>
 
-                <Box id='buttons-box' className="buttons-box">
-                <ActionButton
+                <Box id="buttons-box" className="buttons-box">
+                    <ActionButton
                         id="cancel-button"
                         name="cancel-button"
                         renderBtnCancel={true}
@@ -103,14 +103,11 @@ const UserLoginForm = (props: UserLoginProps) => {
                         label="Login"
                         onClickAction={goToLogin}
                     />
-
                 </Box>
 
-                
-
                 <div className="field-item">
-                    <Link id='create-new-user-link' onClick={goToCreateNewUser}>
-                        <Typography variant="body2" >
+                    <Link id="create-new-user-link" onClick={goToCreateNewUser}>
+                        <Typography variant="body2">
                             Not registered yet? click here.
                         </Typography>
                     </Link>
