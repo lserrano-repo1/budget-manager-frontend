@@ -1,4 +1,6 @@
+import { green } from "@mui/material/colors";
 import { createTheme } from "@mui/material/styles";
+
 
 export const defaultFontSet = "'Helvetica Now Text'";
 
@@ -19,9 +21,13 @@ const budgtManTheme = createTheme({
     breakpoints: breakpoints,
 
     palette: {
+     
         primary: {
+          light: "#3D8aaa",
           main: "#3D892D",
+          dark:"#AAA92D"
         },
+       
         text: {
           primary: "#883D1E",
         },
@@ -29,7 +35,7 @@ const budgtManTheme = createTheme({
           main: "#F21B3F",
         },
         success: {
-          main: "#192954",
+          main: "#192954"
         },
     },
 
@@ -163,7 +169,51 @@ const budgtManTheme = createTheme({
               textTransform: "none",
               fontFamily: "Helvetica Now Text",
               fontSize:'16px',
+             
+              '&:hover': {
+                backgroundColor: '#DCDCDC',
+                color: '#000'
+            }
             },
+
+            textPrimary:{
+              backgroundColor:'#483D8B',
+              color:'#ffffff'
+            },
+             textSecondary:{
+              backgroundColor:'#792F17',
+              color:'#ffffff'
+             },
+             textInfo:{
+              backgroundColor:'#Cf5f5f',
+              color:'#ffffff'
+             },
+             textWarning:{
+              backgroundColor:'#737373',
+              color:'#ffffff'
+             },
+
+
+
+
+             contained: {
+              color: '#fff',
+            },
+      
+            containedPrimary: {
+              color: '#fff',
+            },
+      
+            containedSecondary: {
+              color: '#fff',
+            },
+      
+      
+            colorInherit: {
+              color: '#1123fd',
+            },
+
+
           },
         },
     

@@ -4,16 +4,26 @@ import { RootState } from '../../app/store';
 import { useAppDispatch } from '../../app/hooks';
 import { NewUserProps } from './newUser.d';
 import BaseLayout from '../../component/Layout/BaseLayout';
-import { Button, Grid, Link, Typography, FormControl } from '@mui/material';
+import { Button, Grid, Box, Typography, FormControl } from '@mui/material';
 import { handleInputValue } from './newUserSlice';
 import InputField from '../../component/InputField/InputField';
 import SalutationList from '../../component/Common/salutation';
 import InputSelectField from '../../component/SelectField/InputSelectField';
-
+import ActionButton from '../../component/Buttons/Button';
+import { useNavigate } from 'react-router-dom';
 import './newUser.scss';
 
 const NewUserForm = (props: NewUserProps) => {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+
+    const goToLandingPage = () => {
+        navigate('/', { replace: true });
+    };
+
+    const goToCreateNewUser = () => {
+        console.log('creating new user');
+    };
 
     return (
         <BaseLayout>
@@ -110,28 +120,25 @@ const NewUserForm = (props: NewUserProps) => {
                     </div>
                 </FormControl>
 
-                <Grid
-                    container
-                    item
-                    id="login-buttons-grid"
-                    className="buttons-styles">
-                    <div id="newuser-cancel-button-div" className="field-item">
-                        <Button
-                            type="submit"
-                            className="cancel-button" /*onClick={handleSubmitAction}*/
-                        >
-                            <Typography variant="h4">Cancel</Typography>
-                        </Button>
-                    </div>
-                    <div id="newuser-submit-button-div" className="field-item">
-                        <Button
-                            type="submit"
-                            className="submit-button" /*onClick={handleSubmitAction}*/
-                        >
-                            <Typography variant="h4">Submit</Typography>
-                        </Button>
-                    </div>
-                </Grid>
+                <Box id="buttons-box" className="buttons-box">
+                    <ActionButton
+                        id="cancel-button"
+                        name="cancel-button"
+                        renderBtnCancel={true}
+                        label="Cancel"
+                        onClickAction={goToLandingPage}
+                    />
+
+                    <ActionButton
+                        id="create-new-user-btn"
+                        name="create-new-user-btn"
+                        renderBtnOkSubmitNext={true}
+                        label="Sign Up"
+                        onClickAction={goToCreateNewUser}
+                    />
+                </Box>
+
+              
             </Grid>
         </BaseLayout>
     );

@@ -42,3 +42,11 @@ body{
   }
 }
 
+.buttons-box{
+  display: flex;
+  flex-direction: row !important;
+  justify-content: space-evenly !important;
+  margin-top: 50px !important;
+  margin-bottom: 50px !important;
+}
+

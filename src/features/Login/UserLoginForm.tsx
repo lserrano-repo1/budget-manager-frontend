@@ -1,16 +1,34 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { useAppDispatch } from '../../app/hooks';
-import { Button, Grid, Link, Typography, FormControl } from '@mui/material';
+import { Button, Grid, Link, Typography, FormControl, Box } from '@mui/material';
 import InputField from '../../component/InputField/InputField';
 import BaseLayout from '../../component/Layout/BaseLayout';
 import { handleInputValue, handleUserLogin } from './userLoginSlice';
 import { RootState } from '../../app/store';
 import { UserLoginProps, LoginData } from './userLogin.d';
 import './userLogin.scss';
+import { useNavigate } from 'react-router-dom';
+import ActionButton from '../../component/Buttons/Button';
 
 const UserLoginForm = (props: UserLoginProps) => {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+
+    const goToLandingPage = () => {
+        navigate('/', { replace: true });
+    };
+
+    const goToLogin =()=>{
+        console.log('Attempting to login...');
+    }
+
+    const goToCreateNewUser=()=>{
+        console.log('Redirecting to register a new user...');
+        navigate('/newuser',{replace:true});
+    }
+
+
     const handleSubmitAction = (e:any) => {
             e.preventDefault();
             console.info("Submitting login information");
@@ -68,15 +86,31 @@ const UserLoginForm = (props: UserLoginProps) => {
                         />
                     </div>
                 </FormControl>
-                <div id="submit-button-div" className="field-item">
-                    <Button type="submit" className="login-button" onClick={handleSubmitAction}>
-                        <Typography variant="h4">Submit</Typography>
-                    </Button>
-                </div>
+
+                <Box id='buttons-box' className="buttons-box">
+                <ActionButton
+                        id="cancel-button"
+                        name="cancel-button"
+                        renderBtnCancel={true}
+                        label="Cancel"
+                        onClickAction={goToLandingPage}
+                    />
+
+                    <ActionButton
+                        id="login-user-btn"
+                        name="login-user-btn"
+                        renderBtnOkSubmitNext={true}
+                        label="Login"
+                        onClickAction={goToLogin}
+                    />
+
+                </Box>
+
+                
 
                 <div className="field-item">
-                    <Link>
-                        <Typography variant="h4">
+                    <Link id='create-new-user-link' onClick={goToCreateNewUser}>
+                        <Typography variant="body2" >
                             Not registered yet? click here.
                         </Typography>
                     </Link>

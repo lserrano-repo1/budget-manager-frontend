@@ -6,6 +6,7 @@ import UserLoginForm from './features/Login/UserLoginForm';
 import NewUserForm from './features/NewUser/NewUser';
 import NotFound from './features/404/NotFound';
 import './App.css';
+import LandingPage from './features/Landing/Landing';
 
 
 
@@ -15,8 +16,9 @@ function App() {
     <ThemeProvider theme={budgtManTheme}>
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<UserLoginForm/>} />
-                <Route path="/newuser" element={<NewUserForm/>} />
+              <Route path="/" element={<LandingPage/>} />
+              <Route path="/login" element={<UserLoginForm/>} />
+              <Route path="/newuser" element={<NewUserForm/>} />
                 
                 <Route path="*" element={<NotFound/>} />
             </Routes>
