@@ -1,26 +1,25 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-import { Root } from "react-dom/client";
-import { InputChange } from "../../app/App.d";
-
-import { UserLoginState, LoginData } from "./userLogin.d";
+import { InputChange, PersonLoginData, UserLoginState } from "../../app/App.d";
 import { RootState } from "../../app/store";
 
-
- const initialState: UserLoginState = {
-    email: "",
-    password:"",
-    salutation:"",
-    firstName:"",
-    lastName:"",
-    usr_token: "",
-    isAuthenticated:null,
-    errorField: [],
-    
-};
+const initialState: UserLoginState = {
+     salutation: "",
+     firstName: "",
+     lastName: "",
+     loginData: {
+         email: '',
+         password: ''
+     },
+     authentication: {
+         usr_token: '',
+         isAuthenticated: null
+     },
+     errorField: []
+ };
 
 export const handleUserLogin = createAsyncThunk<any,any,any>(
     "auth/login",
-    async(data:LoginData)=>{
+    async(data:PersonLoginData)=>{
         try {
          //TODO: remove this log
             console.info(`data:`);
@@ -77,15 +76,18 @@ export const userLoginSlice = createSlice({
                 const {email, usr_token, isAuthenticated} = action.payload;
                 console.log("FULFILLED Response for handleUserLogin..." + action.payload);
                 console.log(action.payload);
-                state.usr_token=action.payload.usr_token;
-                state.isAuthenticated=action.payload.isAuthenticated;
+                
+                state.loginData.email=email;
+                state.authentication.usr_token=usr_token;
+                state.authentication.isAuthenticated=isAuthenticated;
         })
         .addCase(handleUserLogin.rejected, (state:UserLoginState, action:PayloadAction<any>) =>{
             const {email, usr_token, isAuthenticated} = action.payload;
             console.log("REJECTED Response for handleUserLogin..." + action.payload);
             console.log(action.payload);
-            state.usr_token="";
-            state.isAuthenticated=false;
+            state.loginData.email=email;
+            state.authentication.usr_token='';
+            state.authentication.isAuthenticated=false;
         })
 
 
@@ -97,10 +99,10 @@ export const userLoginSlice = createSlice({
 function getNewValues(field: string, state: UserLoginState, value: string) {
     switch (field) {
         case 'email-text-field':
-            state.email = value;
+            state.loginData.email = value;
             break;
         case 'pswrd-text-field':
-            state.password = value;
+            state.loginData.password = value;
             break;
     }
 };
@@ -112,5 +114,5 @@ export const { handleInputValue } = userLoginSlice.actions;
 /** Exporting reduced */
 export default userLoginSlice.reducer;
 
-export const usr_token = (state:RootState) => state.userLoginReducer.usr_token;
-export const isAuthenticated = (state:RootState) => state.userLoginReducer.isAuthenticated;
+export const usr_token = (state:RootState) => state.appReducer.personData.authentication.usr_token;
+export const isAuthenticated = (state:RootState) => state.appReducer.personData.authentication.isAuthenticated;

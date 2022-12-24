@@ -13,10 +13,11 @@ import InputField from '../../component/InputField/InputField';
 import BaseLayout from '../../component/Layout/BaseLayout';
 import { handleInputValue, handleUserLogin } from './userLoginSlice';
 import { RootState } from '../../app/store';
-import { UserLoginProps, LoginData } from './userLogin.d';
+//import { UserLoginProps, LoginData } from './userLogin.d';
 import './userLogin.scss';
 import { useNavigate } from 'react-router-dom';
 import ActionButton from '../../component/Buttons/Button';
+import { PersonLoginData, UserLoginProps } from '../../app/App';
 
 const UserLoginForm = (props: UserLoginProps) => {
     const dispatch = useAppDispatch();
@@ -37,9 +38,9 @@ const UserLoginForm = (props: UserLoginProps) => {
         console.info('Submitting login information');
        
 
-        const data: LoginData = {
-            email: props.login.email,
-            password: props.login.password,
+        const data: PersonLoginData = {
+            email: props.login.loginData.email,
+            password: props.login.loginData.password,
         };
 
         dispatch(handleUserLogin(data));
@@ -59,7 +60,7 @@ const UserLoginForm = (props: UserLoginProps) => {
                             name="email"
                             type="email"
                             label="Email"
-                            value={props.login.email}
+                            value={props.login.loginData.email}
                             onChange={(e: any) =>
                                 props.handleInputValue({
                                     value: e.target.value,
@@ -76,7 +77,7 @@ const UserLoginForm = (props: UserLoginProps) => {
                             name="pswrd"
                             type="password"
                             label="Password"
-                            value={props.login.password}
+                            value={props.login.loginData.password}
                             onChange={(e: any) =>
                                 props.handleInputValue({
                                     value: e.target.value,

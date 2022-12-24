@@ -2,8 +2,21 @@ import { createSlice } from "@reduxjs/toolkit";
 import { appState } from './App.d';
 
 
-const initialState: appState = {
-    usrLoggedToken: '',
+export const initialState: appState = {
+    
+    personData:{
+        salutation:'',
+        firstName:'',
+        lastName:'',
+        loginData:{
+            email:'',
+            password:'',
+        },
+        authentication:{
+            usr_token:'',
+            isAuthenticated:null
+        }
+    }
 };
 
 /** Create redux slice */

@@ -2,12 +2,12 @@ import React from 'react';
 import { ErrorField, InputChange } from "../../app/App.d";
 
 
-export interface LoginData {
+export interface LoginData_ {
     email:string;
     password:string;
 }
 
-export interface UserLoginDT {
+export interface UserLoginDT_ {
     email:string;
     password:string;
     salutation:string;
@@ -17,11 +17,11 @@ export interface UserLoginDT {
     usr_token:string;
 }
 
-export interface UserLoginState extends UserLoginDT {
+export interface UserLoginState_ extends UserLoginDT {
     errorField : ErrorField[];
 }
 
-export interface UserLoginProps {
+export interface UserLoginProps_ {
     login:UserLoginState;
     handleInputValue: (payload:InputChange) => ActionCreatorWithPayload<InputChange,string>;
 
