@@ -3,6 +3,7 @@ import { Root } from "react-dom/client";
 import { InputChange } from "../../app/App.d";
 
 import { UserLoginState, LoginData } from "./userLogin.d";
+import { RootState } from "../../app/store";
 
 
  const initialState: UserLoginState = {
@@ -77,14 +78,14 @@ export const userLoginSlice = createSlice({
                 console.log("FULFILLED Response for handleUserLogin..." + action.payload);
                 console.log(action.payload);
                 state.usr_token=action.payload.usr_token;
-            state.isAuthenticated=action.payload.isAuthenticated;
+                state.isAuthenticated=action.payload.isAuthenticated;
         })
         .addCase(handleUserLogin.rejected, (state:UserLoginState, action:PayloadAction<any>) =>{
             const {email, usr_token, isAuthenticated} = action.payload;
             console.log("REJECTED Response for handleUserLogin..." + action.payload);
             console.log(action.payload);
-            state.usr_token=action.payload.usr_token;
-            state.isAuthenticated=action.payload.isAuthenticated;
+            state.usr_token="";
+            state.isAuthenticated=false;
         })
 
 
@@ -110,3 +111,6 @@ export const { handleInputValue } = userLoginSlice.actions;
 
 /** Exporting reduced */
 export default userLoginSlice.reducer;
+
+export const usr_token = (state:RootState) => state.userLoginReducer.usr_token;
+export const isAuthenticated = (state:RootState) => state.userLoginReducer.isAuthenticated;

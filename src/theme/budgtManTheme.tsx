@@ -216,7 +216,16 @@ const budgtManTheme = createTheme({
 
           },
         },
-    
+
+       
+        MuiOutlinedInput:{
+          styleOverrides:{
+            input:{
+              padding:'4px 2px 4px 2px',
+            }
+          }
+        },
+       
        
       },
 
