@@ -3,8 +3,8 @@ import {
     AppBar, Toolbar, Box, styled, AppBarProps, Grid, Link, Typography
 } from '@mui/material';
 import React from 'react';
-//import {usr_token, isAuthenticated} from '../../features/Login/userLoginSlice';
-import {usr_token, isAuthenticated} from '../../features/Person/personSlice';
+
+import {usr_token, isAuthenticated, salutation, lastName} from '../../features/Person/personSlice';
 import './style.scss';
 import { useAppSelector } from '../../app/hooks';
 
@@ -13,6 +13,8 @@ const Header = () => {
 
     const usrToken = useAppSelector(usr_token);
     const isUserAuthenticated = useAppSelector(isAuthenticated);
+    const userSalutation = useAppSelector(salutation);
+    const userLastName = useAppSelector(lastName);
 
     const AppBarStyled = styled(AppBar)<AppBarProps>(({ theme }) => ({
         boxShadow:'none'
@@ -45,6 +47,9 @@ const Header = () => {
                     <React.Fragment>
                         <img id='user-logged-in-img' alt='user logged in' width='25px' height='25px'
                         src={`${process.env.PUBLIC_URL}/img/loggedIn.png`} />
+                        {  userSalutation.length>0 && userLastName.length>0 && (
+                            <div>Hello, {userSalutation}{userLastName}</div>
+                        )}
 
                         <Link id="create-new-user-link" /*onClick={goToCreateNewUser}*/>
                             <Typography variant="body2">

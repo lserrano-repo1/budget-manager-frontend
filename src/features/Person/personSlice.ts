@@ -131,3 +131,5 @@ export default personSlice.reducer;
 
 export const usr_token = (state:RootState) => state.personReducer.personData.authentication.usr_token;
 export const isAuthenticated = (state:RootState) => state.personReducer.personData.authentication.isAuthenticated;
+export const salutation = (state:RootState) => state.personReducer.personData.salutation;
+export const lastName = (state:RootState) => state.personReducer.personData.lastName;
