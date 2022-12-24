@@ -3,7 +3,8 @@ import {
     AppBar, Toolbar, Box, styled, AppBarProps, Grid, Link, Typography
 } from '@mui/material';
 import React from 'react';
-import {usr_token, isAuthenticated} from '../../features/Login/userLoginSlice';
+//import {usr_token, isAuthenticated} from '../../features/Login/userLoginSlice';
+import {usr_token, isAuthenticated} from '../../features/Person/personSlice';
 import './style.scss';
 import { useAppSelector } from '../../app/hooks';
 

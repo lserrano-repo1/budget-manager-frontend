@@ -1,25 +1,19 @@
 import React from 'react';
+import { RootState } from '../../app/store';
 import { connect } from 'react-redux';
 import { useAppDispatch } from '../../app/hooks';
-import {
-    Button,
-    Grid,
-    Link,
-    Typography,
-    FormControl,
-    Box,
-} from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import {Button,Grid,Link,Typography,FormControl,Box} from '@mui/material';
 import InputField from '../../component/InputField/InputField';
 import BaseLayout from '../../component/Layout/BaseLayout';
-import { handleInputValue, handleUserLogin } from './userLoginSlice';
-import { RootState } from '../../app/store';
-//import { UserLoginProps, LoginData } from './userLogin.d';
-import './userLogin.scss';
-import { useNavigate } from 'react-router-dom';
+import { handleInputValue, handleUserLogin } from './personSlice';
+import { PersonProps, PersonLoginData } from './person.d';
 import ActionButton from '../../component/Buttons/Button';
-import { PersonLoginData, UserLoginProps } from '../../app/App';
 
-const UserLoginForm = (props: UserLoginProps) => {
+import './person.scss';
+
+
+const UserLoginForm = (props: PersonProps) => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
@@ -39,8 +33,8 @@ const UserLoginForm = (props: UserLoginProps) => {
        
 
         const data: PersonLoginData = {
-            email: props.login.loginData.email,
-            password: props.login.loginData.password,
+            email: props.person.personData.loginData.email,
+            password: props.person.personData.loginData.password,
         };
 
         dispatch(handleUserLogin(data));
@@ -60,7 +54,7 @@ const UserLoginForm = (props: UserLoginProps) => {
                             name="email"
                             type="email"
                             label="Email"
-                            value={props.login.loginData.email}
+                            value={props.person.personData.loginData.email}
                             onChange={(e: any) =>
                                 props.handleInputValue({
                                     value: e.target.value,
@@ -77,7 +71,7 @@ const UserLoginForm = (props: UserLoginProps) => {
                             name="pswrd"
                             type="password"
                             label="Password"
-                            value={props.login.loginData.password}
+                            value={props.person.personData.loginData.password}
                             onChange={(e: any) =>
                                 props.handleInputValue({
                                     value: e.target.value,
@@ -119,7 +113,7 @@ const UserLoginForm = (props: UserLoginProps) => {
 };
 
 const mapStateToProps = (state: RootState) => ({
-    login: state.userLoginReducer,
+    person: state.personReducer,
 });
 
 export default connect(mapStateToProps, {

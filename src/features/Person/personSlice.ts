@@ -1,21 +1,24 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-import { InputChange, PersonLoginData, UserLoginState } from "../../app/App.d";
 import { RootState } from "../../app/store";
+import { PersonState, PersonLoginData} from "./person.d";
+import { InputChange } from "../../app/App";
 
-const initialState: UserLoginState = {
-     salutation: "",
-     firstName: "",
-     lastName: "",
-     loginData: {
-         email: '',
-         password: ''
-     },
-     authentication: {
-         usr_token: '',
-         isAuthenticated: null
-     },
-     errorField: []
- };
+const initialState:PersonState = {
+    personData: {
+        salutation:'',
+        firstName:'',
+        lastName:'',
+        loginData:{
+            email:'',
+            password:'',
+        },
+        authentication: {
+            usr_token : '',
+            isAuthenticated:null,
+        },
+    },
+    errorField: []
+};
 
 export const handleUserLogin = createAsyncThunk<any,any,any>(
     "auth/login",
@@ -59,11 +62,11 @@ export const handleUserLogin = createAsyncThunk<any,any,any>(
 
 
 
-export const userLoginSlice = createSlice({
+export const personSlice = createSlice({
     name: 'userLoginSlc',
     initialState,
     reducers: {
-        handleInputValue: (state: UserLoginState, action: PayloadAction<InputChange>) => {
+        handleInputValue: (state: PersonState, action: PayloadAction<InputChange>) => {
             const { value, field } = action.payload;
 
             getNewValues(field, state, value);
@@ -72,22 +75,22 @@ export const userLoginSlice = createSlice({
     },
     extraReducers:(builder)=> {
         builder
-            .addCase(handleUserLogin.fulfilled, (state:UserLoginState, action:PayloadAction<any>) =>{
+            .addCase(handleUserLogin.fulfilled, (state:PersonState, action:PayloadAction<any>) =>{
                 const {email, usr_token, isAuthenticated} = action.payload;
                 console.log("FULFILLED Response for handleUserLogin..." + action.payload);
                 console.log(action.payload);
                 
-                state.loginData.email=email;
-                state.authentication.usr_token=usr_token;
-                state.authentication.isAuthenticated=isAuthenticated;
+                state.personData.loginData.email = email;
+                state.personData.authentication.usr_token = usr_token;
+                state.personData.authentication.isAuthenticated = isAuthenticated;
         })
-        .addCase(handleUserLogin.rejected, (state:UserLoginState, action:PayloadAction<any>) =>{
+        .addCase(handleUserLogin.rejected, (state:PersonState, action:PayloadAction<any>) =>{
             const {email, usr_token, isAuthenticated} = action.payload;
             console.log("REJECTED Response for handleUserLogin..." + action.payload);
             console.log(action.payload);
-            state.loginData.email=email;
-            state.authentication.usr_token='';
-            state.authentication.isAuthenticated=false;
+            state.personData.loginData.email=email;
+            state.personData.authentication.usr_token='';
+            state.personData.authentication.isAuthenticated=false;
         })
 
 
@@ -96,23 +99,35 @@ export const userLoginSlice = createSlice({
 });
 
 
-function getNewValues(field: string, state: UserLoginState, value: string) {
+function getNewValues(field: string, state: PersonState, value: string) {
     switch (field) {
         case 'email-text-field':
-            state.loginData.email = value;
+            state.personData.loginData.email = value;
             break;
         case 'pswrd-text-field':
-            state.loginData.password = value;
+            state.personData.loginData.password = value;
+            break;
+        case 'salutation-text-field':
+            state.personData.salutation    = value;
+            break;
+        case 'firstName-text-field':
+            state.personData.firstName=value;
+            break;
+        case 'lastName-text-field':
+            state.personData.lastName = value;
+            break;
+        case 'token-text-field':
+            state.personData.authentication.usr_token   =value;
             break;
     }
 };
 
 
 /** Exporting actions */
-export const { handleInputValue } = userLoginSlice.actions;
+export const { handleInputValue } = personSlice.actions;
 
 /** Exporting reduced */
-export default userLoginSlice.reducer;
+export default personSlice.reducer;
 
-export const usr_token = (state:RootState) => state.appReducer.personData.authentication.usr_token;
-export const isAuthenticated = (state:RootState) => state.appReducer.personData.authentication.isAuthenticated;
+export const usr_token = (state:RootState) => state.personReducer.personData.authentication.usr_token;
+export const isAuthenticated = (state:RootState) => state.personReducer.personData.authentication.isAuthenticated;
