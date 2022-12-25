@@ -12,6 +12,14 @@ export interface PersonLoginData {
     password:string;
 };
 
+export interface PersonCreateData {
+    salutation:string;
+    firstName:string;
+    lastName:string;
+    email:string;
+    password:string;
+}
+
 export interface AuthenticationInfo {
     usr_token : string; 
     isAuthenticated:null|boolean;

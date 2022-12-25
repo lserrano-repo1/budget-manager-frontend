@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
-import { PersonState, PersonLoginData} from "./person.d";
+import { PersonState, PersonLoginData, PersonCreateData} from "./person.d";
 import { InputChange } from "../../app/App";
 
 const initialState:PersonState = {
@@ -20,6 +20,45 @@ const initialState:PersonState = {
     errorField: []
 };
 
+
+export const handleNewUserCreation = createAsyncThunk<any,any,any>(
+    'user/create',
+    async(data:PersonCreateData)=>{
+        try {
+            console.info(`PersonCreateData`);
+            console.info(data);
+
+            const response = await fetch("http://localhost:8500/newuser",{
+                method:'POST',
+                body:JSON.stringify(data),
+                headers:{"Content-Type":"application/json"}
+            })
+
+            const jsonResp = await response.json();
+
+            console.log(`CREATE USER json response`);
+            console.log(jsonResp);
+            console.log(`Token: `+jsonResp.usr_token);
+
+            localStorage.setItem('usr_token', jsonResp.usr_token);
+
+            return {
+                email: jsonResp.email,
+                usr_token: jsonResp.usr_token,
+                isAuthenticated:true,
+            }
+            
+        } catch (error) {
+            console.error('Error ocurred while trying to create a new USER: '+error);
+            console.log(error);
+            localStorage.removeItem('budman_user_token');
+            return {email:null, password:null, usr_token:null, isAuthenticated:false }; 
+        }
+    }
+);
+
+
+
 export const handleUserLogin = createAsyncThunk<any,any,any>(
     "auth/login",
     async(data:PersonLoginData)=>{
@@ -33,10 +72,7 @@ export const handleUserLogin = createAsyncThunk<any,any,any>(
                 method:'POST',
                 body:JSON.stringify(data), 
                 headers:{"Content-Type":"application/json"}
-            })/*.then(response => {
-                if(response.ok) return response.json();
-                return response.json().then(response=>{throw new Error(response.error)})
-            })*/;
+            })
 
             const jsonResp = await response.json();
             
@@ -91,6 +127,15 @@ export const personSlice = createSlice({
             state.personData.loginData.email=email;
             state.personData.authentication.usr_token='';
             state.personData.authentication.isAuthenticated=false;
+        })
+        .addCase(handleNewUserCreation.fulfilled, (state:PersonState, action:PayloadAction<any>)=>{
+            const {email, usr_token, isAuthenticated} = action.payload;
+                console.log("FULFILLED Response for handleNewUserCreation..." + action.payload);
+                console.log(action.payload);
+                
+                state.personData.loginData.email = email;
+                state.personData.authentication.usr_token = usr_token;
+                state.personData.authentication.isAuthenticated = isAuthenticated; 
         })
 
 

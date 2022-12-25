@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { RootState } from '../../app/store';
 import { useAppDispatch } from '../../app/hooks';
-import { PersonProps } from './person.d';
+import { PersonProps, PersonCreateData } from './person.d';
 import BaseLayout from '../../component/Layout/BaseLayout';
 import { Button, Grid, Box, Typography, FormControl } from '@mui/material';
-import { handleInputValue } from './personSlice';
+import { handleInputValue, handleNewUserCreation } from './personSlice';
 import InputField from '../../component/InputField/InputField';
 import SalutationList from '../../component/Common/salutation';
 import InputSelectField from '../../component/SelectField/InputSelectField';
@@ -22,7 +22,17 @@ const NewUserForm = (props: PersonProps) => {
     };
 
     const goToCreateNewUser = () => {
-        console.log('creating new user');
+        console.log('Attempting to creating new user');
+
+        const data:PersonCreateData={
+            salutation: props.person.personData.salutation,
+            firstName: props.person.personData.firstName,
+            lastName: props.person.personData.lastName,
+            email: props.person.personData.loginData.email,
+            password: props.person.personData.loginData.email,
+        };
+
+        dispatch(handleNewUserCreation(data));
     };
 
     return (
