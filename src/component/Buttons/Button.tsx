@@ -2,7 +2,7 @@ import React from 'react';
 
 import './button.scss';
 import { Box, Button } from '@mui/material';
-import { ButtonProps } from './Button.t';
+import { ButtonProps } from './Button.d';
 
 const ActionButton = (props: ButtonProps) => {
     return (

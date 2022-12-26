@@ -16,6 +16,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import SavingsTwoToneIcon from '@mui/icons-material/SavingsTwoTone';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import {DrawerLayoutProps} from './DrawerLayout.d';
@@ -57,7 +58,7 @@ interface AppBarProps extends MuiAppBarProps {
 }
 
 const AppBar = styled(MuiAppBar, {shouldForwardProp: (prop) => prop !== 'open',})
-  <AppBarProps>(({ theme, open }) => ({
+<AppBarProps>(({ theme, open }) => ({
   zIndex: theme.zIndex.drawer + 1,
   transition: theme.transitions.create(['width', 'margin'], {
     easing: theme.transitions.easing.sharp,
@@ -105,7 +106,6 @@ export default function DrawerLayout(props:DrawerLayoutProps) {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      
       <AppBar position="fixed" open={open}>
         <Toolbar>
           <IconButton
@@ -121,25 +121,22 @@ export default function DrawerLayout(props:DrawerLayoutProps) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Mini variant drawer
+            {props.title}
           </Typography>
-          <div style={{backgroundColor:'lime'}}>LOGEED USRE</div>
         </Toolbar>
-        
       </AppBar>
-
-
-      
+	  
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
-          
         </DrawerHeader>
+
         <Divider />
+
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+          {['Inborx', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
                 sx={{
@@ -148,21 +145,23 @@ export default function DrawerLayout(props:DrawerLayoutProps) {
                   px: 2.5,
                 }}
               >
-                <ListItemIcon
+              <ListItemIcon
                   sx={{
                     minWidth: 0,
                     mr: open ? 3 : 'auto',
                     justifyContent: 'center',
                   }}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  {index % 2 === 0 ? <SavingsTwoToneIcon /> : <SavingsTwoToneIcon />}
                 </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} onClick={()=> {alert({text})}}/>
               </ListItemButton>
             </ListItem>
           ))}
         </List>
+
         <Divider />
+
         <List>
           {['All mail', 'Trash', 'Spam'].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
@@ -188,11 +187,12 @@ export default function DrawerLayout(props:DrawerLayoutProps) {
           ))}
         </List>
       </Drawer>
-
-
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-       {props.children}
+        
+        <Typography paragraph>
+        {props.children}
+        </Typography>
       </Box>
     </Box>
   );

@@ -146,8 +146,8 @@ const budgtManTheme = createTheme({
        MuiAppBar: {
           styleOverrides: {
             root: {
-              position: "static",
-              backgroundColor: "#F2F2F2",
+              /*position: "static",*/
+              backgroundColor: "#A52A2A",
             },
           },
         },
