@@ -17,6 +17,8 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import SavingsTwoToneIcon from '@mui/icons-material/SavingsTwoTone';
+import WidgetsTwoToneIcon from '@mui/icons-material/WidgetsTwoTone';
+import AssessmentTwoToneIcon from '@mui/icons-material/AssessmentTwoTone';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import {DrawerLayoutProps} from './DrawerLayout.d';
@@ -136,8 +138,8 @@ export default function DrawerLayout(props:DrawerLayoutProps) {
         <Divider />
 
         <List>
-          {['Inborx', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+          {props.menuOptions.map((conf, index) => (
+            <ListItem key={conf.text} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -152,9 +154,11 @@ export default function DrawerLayout(props:DrawerLayoutProps) {
                     justifyContent: 'center',
                   }}
                 >
-                  {index % 2 === 0 ? <SavingsTwoToneIcon /> : <SavingsTwoToneIcon />}
+                  {conf.iconType === "report" ? <AssessmentTwoToneIcon /> :<WidgetsTwoToneIcon /> }
+                 
+                  
                 </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} onClick={()=> {alert({text})}}/>
+                <ListItemText primary={conf.text} sx={{ opacity: open ? 1 : 0 }} onClick={conf.onClickAction}/>
               </ListItemButton>
             </ListItem>
           ))}

@@ -9,6 +9,6 @@ export interface DrawerLayoutProps{
 
 export interface DrawerMenuOptions {
     text:string;
-    icon?:SvgIconTypeMap;
+    iconType: "action"|"report";
     onClickAction?: () => void;
 }
