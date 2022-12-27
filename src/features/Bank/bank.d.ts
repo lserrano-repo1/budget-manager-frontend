@@ -11,6 +11,8 @@ export interface BankProps{
 export interface BankState{
     bankData: BankData;
     errorField : ErrorField[];
+    banksList: BankData[];
+    mode:"Update"|"Delete"|"Create"|"Display"|"Unknown";
 }
 
 
@@ -19,4 +21,5 @@ export interface BankData {
     bankAddress:string;
     bankContact:string;
     bankEmail:string;
+    bankId:string;
 }

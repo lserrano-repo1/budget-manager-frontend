@@ -51,7 +51,7 @@ const Header = () => {
                             <div>Hello, {userSalutation}{userLastName}</div>
                         )}
 
-                        <Link id="create-new-user-link" /*onClick={goToCreateNewUser}*/>
+                        <Link id="user-log-uot-link" /*onClick={goToCreateNewUser}*/>
                             <Typography variant="body2">
                                 Click to logout
                             </Typography>
