@@ -37,5 +37,6 @@ export interface PersonData {
 export interface PersonProps {
     person:PersonState
     handleInputValue: (payload:InputChange) => ActionCreatorWithPayload<InputChange,string>;
+    handleUserLogOut: () => ActionCreatorWithPayload<string>;
 }
 

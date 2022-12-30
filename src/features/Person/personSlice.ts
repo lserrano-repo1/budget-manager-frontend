@@ -14,7 +14,7 @@ const initialState:PersonState = {
         },
         authentication: {
             usr_token : '',
-            isAuthenticated:null,
+            isAuthenticated: null,
         },
     },
     errorField: []
@@ -82,11 +82,24 @@ export const handleUserLogin = createAsyncThunk<any,any,any>(
             
             localStorage.setItem('usr_token', jsonResp.usr_token);
 
-            return {
-                email: jsonResp.email,
-                usr_token: jsonResp.token,
-                isAuthenticated:true,
+
+            if(jsonResp.token ==='' || jsonResp.email===''){
+                return {
+                    email: jsonResp.email,
+                    usr_token: 'invalid',
+                    isAuthenticated:false,
+                    message:jsonResp.message
+                }
+            } else {
+                return {
+                    email: jsonResp.email,
+                    usr_token: jsonResp.token,
+                    isAuthenticated:true,
+                    message:jsonResp.message
+                }
             }
+
+            
             
         } catch (error) {
             console.error('Error ocurred while trying to login: '+error);
@@ -106,7 +119,12 @@ export const personSlice = createSlice({
             const { value, field } = action.payload;
 
             getNewValues(field, state, value);
-
+        },
+        handleUserLogOut: (state: PersonState, action: PayloadAction) => {
+           
+            state.personData.loginData.email = "";
+            state.personData.authentication.usr_token = "";
+            state.personData.authentication.isAuthenticated = null;
         },
     },
     extraReducers:(builder)=> {
@@ -169,7 +187,9 @@ function getNewValues(field: string, state: PersonState, value: string) {
 
 
 /** Exporting actions */
-export const { handleInputValue } = personSlice.actions;
+export const { handleInputValue 
+    , handleUserLogOut} = personSlice.actions;
+
 
 /** Exporting reduced */
 export default personSlice.reducer;

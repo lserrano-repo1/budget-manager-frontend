@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { RootState } from '../../app/store';
 import { connect } from 'react-redux';
 import { useAppDispatch } from '../../app/hooks';
 import { useNavigate } from 'react-router-dom';
-import {Grid,Link,Typography,FormControl,Box} from '@mui/material';
+import {Grid,Link,Typography,FormControl,Box, Alert} from '@mui/material';
 import InputField from '../../component/InputField/InputField';
 import BaseLayout from '../../component/Layout/BaseLayout';
-import { handleInputValue, handleUserLogin } from './personSlice';
+import { handleInputValue, handleUserLogOut, handleUserLogin } from './personSlice';
 import { PersonProps, PersonLoginData } from './person.d';
 import ActionButton from '../../component/Buttons/Button';
 
@@ -16,6 +16,22 @@ import './person.scss';
 const UserLoginForm = (props: PersonProps) => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const [displayMessage, setDisplayMessage] = useState(false);
+
+    useEffect(() => {
+        /*console.log('*************** props.person.personData.authentication.isAuthenticated');
+        console.log(props.person.personData.authentication.isAuthenticated);*/
+        if (props.person.personData.authentication.isAuthenticated){
+            setDisplayMessage(false);
+            navigate('/dashboard', { replace: true });
+        } else if (props.person.personData.authentication.isAuthenticated===false ) 
+            {
+            setDisplayMessage(true);
+            console.error("Wrong credentials or user does not exist");
+        } 
+    }, [props.person.personData.authentication.isAuthenticated
+        , props.person.personData.authentication.usr_token]);
+    
 
     const goToLandingPage = () => {
         navigate('/', { replace: true });
@@ -26,18 +42,16 @@ const UserLoginForm = (props: PersonProps) => {
         navigate('/newuser', { replace: true });
     };
 
-    const goToLogin = (/*e: any*/) => {
-        console.log('Attempting to login...');
-        /*e.preventDefault();*/
+    const goToLogin = () => { 
         console.info('Submitting login information');
-       
-
         const data: PersonLoginData = {
             email: props.person.personData.loginData.email,
             password: props.person.personData.loginData.password,
         };
 
         dispatch(handleUserLogin(data));
+
+       
     };
 
     return (
@@ -82,6 +96,15 @@ const UserLoginForm = (props: PersonProps) => {
                     </div>
                 </FormControl>
 
+                {/** Messages */}
+                <Box id="messages-display" style={{ paddingTop: '10px' }}>
+                        {displayMessage && (
+                            <Alert severity="success">
+                                Wrong credentials or user does not exist
+                            </Alert>
+                        )}
+                    </Box>
+
                 <Box id="buttons-box" className="buttons-box">
                     <ActionButton
                         id="cancel-button"
@@ -118,4 +141,5 @@ const mapStateToProps = (state: RootState) => ({
 
 export default connect(mapStateToProps, {
     handleInputValue,
+    handleUserLogOut,
 })(UserLoginForm);

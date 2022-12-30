@@ -5,7 +5,7 @@ import { useAppDispatch } from '../../app/hooks';
 import { PersonProps, PersonCreateData } from './person.d';
 import BaseLayout from '../../component/Layout/BaseLayout';
 import { Button, Grid, Box, Typography, FormControl } from '@mui/material';
-import { handleInputValue, handleNewUserCreation } from './personSlice';
+import { handleInputValue, handleNewUserCreation, handleUserLogOut } from './personSlice';
 import InputField from '../../component/InputField/InputField';
 import SalutationList from '../../component/Common/salutation';
 import InputSelectField from '../../component/SelectField/InputSelectField';
@@ -160,4 +160,5 @@ const mapStateToProps = (state: RootState) => ({
 
 export default connect(mapStateToProps, {
     handleInputValue,
+    handleUserLogOut,
 })(NewUserForm);

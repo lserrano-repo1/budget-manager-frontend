@@ -7,8 +7,9 @@ import NewUserForm from './features/Person/NewUser';
 import NotFound from './features/404/NotFound';
 import './App.css';
 import LandingPage from './features/Landing/Landing';
-import DrawerLayout from './component/Layout/DrawerLayout';
+
 import Bank from './features/Bank/Bank';
+import Dashboard from './features/Dashboard/Dashboard';
 
 
 
@@ -20,6 +21,7 @@ function App() {
         <BrowserRouter>
             <Routes>
               <Route path="/" element={<LandingPage/>} />
+              <Route path="/dashboard" element={<Dashboard/>} />
               <Route path="/login" element={<UserLoginForm/>} />
               <Route path="/newuser" element={<NewUserForm/>} />
               <Route path="/bank" element={<Bank/>} />

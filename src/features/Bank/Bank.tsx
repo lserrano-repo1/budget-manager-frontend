@@ -24,17 +24,27 @@ import {
     getByBankId,
     deleteBankById,
 } from './bankSlice';
-import { useAppDispatch } from '../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { usr_token } from '../../features/Person/personSlice';
+
 
 const Bank = (props: BankProps) => {
+    const usrToken = useAppSelector(usr_token);
     const [displaySuccess, setDisplaySuccess] = React.useState(false);
     const dispatch = useAppDispatch();
+    
+    const navigate = useNavigate();
+    useEffect(() => {
+        if(usrToken===""){
+            navigate('/', { replace: true });
+        }
+    }, [usrToken]);
+   
+   
+   
     useEffect(() => {
         dispatch(getAllBanks(null));
     }, [props.bank.mode, props.bank.bankData.bankId, displaySuccess]);
-
-
-    
 
 
     const displayAddBankForm = () => {
@@ -384,6 +394,7 @@ const Bank = (props: BankProps) => {
 
 const mapStateToProps = (state: RootState) => ({
     bank: state.bankReducer,
+    person: state.personReducer,
 });
 
 export default connect(mapStateToProps, {

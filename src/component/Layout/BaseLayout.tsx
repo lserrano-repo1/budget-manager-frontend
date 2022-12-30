@@ -1,4 +1,3 @@
-import { Box } from '@mui/material';
 import React from 'react';
 import {  BaseLayoutProps } from './BaseLayout.d';
 import Footer from './Footer';
