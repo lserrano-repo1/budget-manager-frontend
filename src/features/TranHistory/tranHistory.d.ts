@@ -1,6 +1,5 @@
 
-
-
+import { DDLData, InputChange } from "../../app/App";
 
 export interface TranHistoryProps{
     tranHistory:TranHistoryState;
@@ -10,15 +9,17 @@ export interface TranHistoryProps{
 
 export interface TranHistoryState{
     tranHistoryFilters:TranHistoryFilters;
+
     tranHistoryList: TranHistoryData[];
+    ddlCategories: DDLData[];
 
     errorField : ErrorField[];
 }
 
 export interface TranHistoryFilters {
-    filterDate: string|null;
-    filterCategory: string|null;
-    filterBankAccount:string|null;
+    trnCreationDate: string|null;
+    catId: string|null;
+    accId:string|null;
 }
 
 export interface TranHistoryData{

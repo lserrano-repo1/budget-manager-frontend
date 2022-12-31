@@ -41,3 +41,9 @@ export interface InputChange {
     value: string;
     field: string;
 }
+
+
+export interface DDLData {
+    label:string;
+    value:string;
+}

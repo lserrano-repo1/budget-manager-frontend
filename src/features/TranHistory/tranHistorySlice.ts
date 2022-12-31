@@ -1,28 +1,68 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import {TranHistoryData, TranHistoryState} from "./tranHistory.d";
-import { InputChange } from "../../app/App";
+import { DDLData, InputChange } from "../../app/App";
 import queryString from 'query-string';
+import { format, parse, parseISO } from 'date-fns';
+
 
 
 
 const initialState:TranHistoryState={
     tranHistoryFilters: {
-        filterBankAccount:null,
-        filterCategory:null,
-        filterDate:null
+        accId:null,
+        catId:null,
+        trnCreationDate:null
     },
     errorField: [],
     tranHistoryList: [],
+    ddlCategories:[]
     
 };
 
  
+export const getAllCategoriesList = createAsyncThunk<any, any, any>(
+    "ddl/categories",
+     async (data: DDLData) => {
+        try {
+            console.info(`GET All categories`);
+            const urlToFetch = queryString.parseUrl(process.env.REACT_APP_DDL_CATEGORIES!);
+
+            console.info('{urlToFetch,urlToFetch.url}');
+            console.info(urlToFetch.url);
+
+            console.info(`DDLData`);
+            console.info(data);
+
+            const response = await fetch(urlToFetch.url,
+                {
+                    method: 'GET',
+                    headers: { "Content-Type": "application/json" }
+                });
+
+            const jsonResp = await response.json();
+
+            console.log(`GET ALL Categories json response`);
+            console.log(jsonResp);
+    
+            return {
+                data: jsonResp.rows,
+            }
+              
+        } catch (error) {
+            console.error('Error ocurred while trying to get all categories: ' + error);
+            console.log(error);
+            return { message: "Error ocurred while trying to get all categories" };
+        }
+     }
+);
+
+
 
 export const getAllTransactionsForFilter = createAsyncThunk<any, any, any>(
     "transaction/getAll",
     async (data: TranHistoryData) => {
         try {
-            console.info(`GET All accounts`);
+            console.info(`POST retrieve all transactions`);
             const urlToFetch = queryString.parseUrl(process.env.REACT_APP_TRANS_HISTORY_FILTER!);
 
             console.info('{urlToFetch,urlToFetch.url}');
@@ -64,7 +104,7 @@ export const tranHistorySlice = createSlice({
         handleInputValue: (state: TranHistoryState, action: PayloadAction<InputChange>) => {
             const { value, field } = action.payload;
 
-           // getNewValues(field, state, value);
+           getNewValues(field, state, value);
         },
     },
     extraReducers:(builder)=>{
@@ -75,8 +115,34 @@ export const tranHistorySlice = createSlice({
                 console.log(action.payload);
                 state.tranHistoryList = data;
             })
+
+            .addCase(getAllCategoriesList.fulfilled, (state:TranHistoryState, action:PayloadAction<any>) =>{
+                const {data} = action.payload;
+                console.log("getAllCategoriesList -> action.payload");
+                console.log(action.payload);
+                state.ddlCategories = data;
+            })
+            
+
     },
 });
+
+
+
+function getNewValues(field: string, state:TranHistoryState , value: string) {
+    switch (field) {
+        case 'datefilter-text-field':
+            state.tranHistoryFilters.trnCreationDate= value;
+            break;
+        case 'filter-category-text-field':
+            state.tranHistoryFilters.catId=value;
+            break;
+        case 'filter-account-number-text-field':
+            state.tranHistoryFilters.accId=value;
+            break;
+    }
+};
+
 
 
 export const {handleInputValue} = tranHistorySlice.actions;
