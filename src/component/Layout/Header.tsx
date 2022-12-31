@@ -118,7 +118,9 @@ const Header = (props:PersonProps) => {
                             </Box>
                         </Grid>
                     </Grid>
+                   
                 </Toolbar>
+                 
             </AppBarStyled>
             {isUserAuthenticated && (<Menu />)}
         </React.Fragment>

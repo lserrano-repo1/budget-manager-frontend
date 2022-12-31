@@ -10,11 +10,14 @@ import LandingPage from './features/Landing/Landing';
 
 import Bank from './features/Bank/Bank';
 import Dashboard from './features/Dashboard/Dashboard';
+import TranHistory from './features/TranHistory/TranHistory';
 
 
 
 
 function App() {
+
+
   return (
     <React.StrictMode>
     <ThemeProvider theme={budgtManTheme}>
@@ -25,6 +28,7 @@ function App() {
               <Route path="/login" element={<UserLoginForm/>} />
               <Route path="/newuser" element={<NewUserForm/>} />
               <Route path="/bank" element={<Bank/>} />
+              <Route path="/tranhistory" element={<TranHistory/>} />
              
                 
               <Route path="*" element={<NotFound/>} />

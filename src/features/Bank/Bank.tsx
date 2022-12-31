@@ -319,61 +319,31 @@ const Bank = (props: BankProps) => {
                                                     return (
                                                         <TableRow
                                                             key={`data-row-${index}`}
-                                                            sx={{
-                                                                '&:last-child td, &:last-child th':
-                                                                    {
-                                                                        border: 0,
-                                                                    },
-                                                            }}>
-                                                            <TableCell
-                                                                component="th"
-                                                                scope="row">
-                                                                {item.bankId}
+                                                            sx={{'&:last-child td, &:last-child th':{border: 0,},}}>
+                                                            <TableCell component="th" scope="row">
+                                                                { item.bankId }
                                                             </TableCell>
-                                                            <TableCell
-                                                                component="th"
-                                                                scope="row">
-                                                                {item.bankName}
+                                                            <TableCell component="th" scope="row">
+                                                                { item.bankName }
                                                             </TableCell>
-                                                            <TableCell
-                                                                component="th"
-                                                                scope="row">
-                                                                {
-                                                                    item.bankAddress
-                                                                }
+                                                            <TableCell component="th" scope="row">
+                                                                { item.bankAddress }
                                                             </TableCell>
-                                                            <TableCell
-                                                                component="th"
-                                                                scope="row">
-                                                                {
-                                                                    item.bankContact
-                                                                }
+                                                            <TableCell component="th" scope="row">
+                                                                { item.bankContact }
                                                             </TableCell>
-                                                            <TableCell
-                                                                component="th"
-                                                                scope="row">
-                                                                {item.bankEmail}
+                                                            <TableCell component="th" scope="row">
+                                                                { item.bankEmail }
                                                             </TableCell>
-                                                            <TableCell
-                                                                component="th"
-                                                                scope="row">
-                                                                <Link
-                                                                    id={`del-data-row-${index}`}
-                                                                    onClick={() =>
-                                                                        handleBankDataDelete(
-                                                                            item
-                                                                        )
-                                                                    }>
+                                                            <TableCell component="th" scope="row">
+                                                                <Link id={`del-data-row-${index}`}
+                                                                    onClick={() => handleBankDataDelete(item)}   >
                                                                     Delete
                                                                 </Link>
                                                                 &nbsp;|&nbsp;
                                                                 <Link
                                                                     id={`upd-data-row-${index}`}
-                                                                    onClick={() =>
-                                                                        retrieveDataToUpdate(
-                                                                            item
-                                                                        )
-                                                                    }>
+                                                                    onClick={() => retrieveDataToUpdate(item)}>
                                                                     Update
                                                                 </Link>
                                                             </TableCell>

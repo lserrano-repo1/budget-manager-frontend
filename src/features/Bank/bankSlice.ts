@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { RootState } from '../../app/store';
 import { InputChange } from "../../app/App";
-import { BankState, BankData, BankProps } from './bank.d';
+import { BankState, BankData } from './bank.d';
+
 
 const initialState: BankState = {
     bankData: {

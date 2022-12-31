@@ -3,13 +3,17 @@ import counterReducer from '../features/counter/counterSlice';
 import AppSlice from './AppSlice'; 
 import PersonSlice from '../features/Person/personSlice';
 import BankSlice from '../features/Bank/bankSlice';
+import DashboardSlice from '../features/Dashboard/dashboardSlice';
+import TranHistory from '../features/TranHistory/tranHistorySlice';
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
     appReducer: AppSlice,
     personReducer: PersonSlice,
-    bankReducer: BankSlice
+    bankReducer: BankSlice,
+    dashboardReducer: DashboardSlice,
+    tranHistoryReducer : TranHistory,
   },
 });
 

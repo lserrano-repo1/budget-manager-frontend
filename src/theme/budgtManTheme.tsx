@@ -147,7 +147,7 @@ const budgtManTheme = createTheme({
           styleOverrides: {
             root: {
               /*position: "static",*/
-              backgroundColor: "#A52A2A",
+              backgroundColor: "#FFF8DC",
             },
           },
         },
