@@ -2,10 +2,12 @@ import React, {useEffect, useState} from 'react';
 import { TranHistoryProps } from './tranHistory.d';
 import { getAllTransactionsForFilter
     , handleInputValue
-    , getAllCategoriesList, getAllAccountsList} from './tranHistorySlice';
+    , getAllCategoriesList
+    , getAllAccountsList
+    , clearFilters} from './tranHistorySlice';
 import { Box, Grid, Link, Paper, Table, TableBody
     , TableCell, TableContainer, TableHead
-    , TableRow, Typography , Button} from '@mui/material';
+    , TableRow, Typography} from '@mui/material';
 import BaseLayout from '../../component/Layout/BaseLayout';
 import { RootState } from '../../app/store';
 import {connect } from 'react-redux';
@@ -37,12 +39,12 @@ const TranHistory =(props:TranHistoryProps)=>{
    },[ props.tranHistory.tranHistoryFilters]);
 
   
-
-
-
-   const handleSelectDate=(selDate:any)=>{
-       
+   const handleSelectDate=(selDate:any)=>{  
         setStartDate(selDate);
+   };
+
+   const handleCelarFilters=()=>{
+    dispatch(clearFilters(null));
    }
 
 
@@ -61,13 +63,14 @@ const TranHistory =(props:TranHistoryProps)=>{
 
                     <Grid id="filters-container"
                         container item
-                        style={{backgroundColor:'yellow'}}
                         className="filters-form-container"
-                        md={10}
-                        lg={10} 
+                        
+                        md={8}
+                        lg={8} 
                     >
-                        <Grid item md={12} lg={12} id="filters-container-main-box">
-                            Select date: 
+                        <Grid item md={12} lg={12} id="filters-container-main-box"
+                         >
+                             <Typography> Select date: </Typography>
                              <DatePicker 
                                 id="datefilter-text-field"
                                 selected={startDate} 
@@ -84,7 +87,8 @@ const TranHistory =(props:TranHistoryProps)=>{
                                 placeholderText="click here"*/
                                 />
                         </Grid>
-                        <Grid item md={12} lg={12} id="filters-container-main-box">
+                        <Grid item md={12} lg={12} id="filters-container-main-box"
+                         className="data-form-row">
                             
                             <InputSelectField
                             id="filter-category"
@@ -101,7 +105,8 @@ const TranHistory =(props:TranHistoryProps)=>{
                             itemsList={props.tranHistory.ddlCategories}
                         />
                         </Grid>
-                        <Grid item md={12} lg={12} id="filters-container-main-box">
+                        <Grid item md={12} lg={12} id="filters-container-main-box"
+                            className="data-form-row" >
                             <InputSelectField
                             id="filter-account-number"
                             name="filter-account-number"
@@ -117,10 +122,14 @@ const TranHistory =(props:TranHistoryProps)=>{
                             itemsList={props.tranHistory.ddlAccounts}
                         />
                         </Grid>
-                        <Grid item md={12} lg={12} id="filters-container-main-box">
+                        <Grid item md={12} lg={12} id="filters-container-main-box"
+                         className="data-form-row" >
                             <Link id="reset-filters-button"
-                               /* onClick={() => handleBankDataDelete(item)} */  >
-                                Clear
+                               onClick={() => handleCelarFilters()}  >
+                               <Typography>
+                                Clear filters
+                               </Typography>
+                                
                                 </Link>
                         </Grid>
                     </Grid>
@@ -241,6 +250,7 @@ const mapStateToProps = (state:RootState)=>({
 });
 
 export default connect(mapStateToProps,{
-    handleInputValue,
+    handleInputValue
+    ,clearFilters
 })(TranHistory);
 

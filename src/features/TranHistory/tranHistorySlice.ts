@@ -143,6 +143,14 @@ export const tranHistorySlice = createSlice({
 
            getNewValues(field, state, value);
         },
+
+
+        clearFilters: (state: TranHistoryState, action: PayloadAction<any>) => {
+            const actionpl = action.payload;
+            state.tranHistoryFilters.accId=null;
+            state.tranHistoryFilters.catId=null;
+            state.tranHistoryFilters.trnCreationDate=null;
+        },
     },
     extraReducers:(builder)=>{
         builder
@@ -191,6 +199,6 @@ function getNewValues(field: string, state:TranHistoryState , value: string) {
 
 
 
-export const {handleInputValue} = tranHistorySlice.actions;
+export const {handleInputValue, clearFilters} = tranHistorySlice.actions;
 
 export default tranHistorySlice.reducer;
