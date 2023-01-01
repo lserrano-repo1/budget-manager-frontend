@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { TranHistoryProps } from './tranHistory.d';
 import { getAllTransactionsForFilter
     , handleInputValue
-    , getAllCategoriesList} from './tranHistorySlice';
+    , getAllCategoriesList, getAllAccountsList} from './tranHistorySlice';
 import { Box, Grid, Link, Paper, Table, TableBody
     , TableCell, TableContainer, TableHead
     , TableRow, Typography , Button} from '@mui/material';
@@ -31,6 +31,8 @@ const TranHistory =(props:TranHistoryProps)=>{
         dispatch(getAllTransactionsForFilter(param));
 
         dispatch(getAllCategoriesList(null));
+
+        dispatch(getAllAccountsList(null));
 
    },[ props.tranHistory.tranHistoryFilters]);
 
@@ -104,7 +106,7 @@ const TranHistory =(props:TranHistoryProps)=>{
                             id="filter-account-number"
                             name="filter-account-number"
                             label="Select Account Number: "
-                            /*value={props.person.personData.salutation}*/
+                            value={props.tranHistory.tranHistoryFilters.accId}
                             style={{ width: '200px' }}
                             onChange={(e: any) =>
                                 props.handleInputValue({
@@ -112,7 +114,7 @@ const TranHistory =(props:TranHistoryProps)=>{
                                     field: e.target.name,
                                 })
                             }
-                           /* itemsList={SalutationList}*/
+                            itemsList={props.tranHistory.ddlAccounts}
                         />
                         </Grid>
                         <Grid item md={12} lg={12} id="filters-container-main-box">
@@ -124,16 +126,13 @@ const TranHistory =(props:TranHistoryProps)=>{
                     </Grid>
 
 
-                    <Grid container item
-                        md={10}
-                        lg={10}
-                        id="data-container"
-                        /*style={{backgroundColor:'lime'}}*/
+                    <Grid id="data-container" container item
+                        md={10} lg={10}
                         className="data-container">
-                        <Box id="data-container-box">
-                        <TableContainer id="data-table-container" component={Paper}>
+                            <Box id="data-container-box">
+                            <TableContainer id="data-table-container" component={Paper}>
 
-                        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                            <Table sx={{ minWidth: 650 }} aria-label="simple table">
                                     <TableHead>
                                         <TableRow>
                                             <TableCell align="center">
@@ -173,8 +172,9 @@ const TranHistory =(props:TranHistoryProps)=>{
 
 
                                     <TableBody>
-                                        {props.tranHistory.tranHistoryList.length > 0 &&
-                                            props.tranHistory.tranHistoryList.map(
+                                        {props.tranHistory.tranHistoryList 
+                                        && props.tranHistory.tranHistoryList.length > 0 
+                                        && props.tranHistory.tranHistoryList.map(
                                                 (item, index) => {
                                                     return (
                                                         <TableRow

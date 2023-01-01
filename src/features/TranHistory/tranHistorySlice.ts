@@ -15,9 +15,46 @@ const initialState:TranHistoryState={
     },
     errorField: [],
     tranHistoryList: [],
-    ddlCategories:[]
+    ddlCategories:[],
+    ddlAccounts:[],
     
 };
+
+export const getAllAccountsList = createAsyncThunk<any, any, any>(
+    "ddl/accounts",
+     async (data: DDLData) => {
+        try {
+            console.info(`GET All bank aacounts`);
+            const urlToFetch = queryString.parseUrl(process.env.REACT_APP_DDL_ACCOUNTS!);
+
+            console.info('{urlToFetch,urlToFetch.url}');
+            console.info(urlToFetch.url);
+
+            console.info(`DDLData`);
+            console.info(data);
+
+            const response = await fetch(urlToFetch.url,
+                {
+                    method: 'GET',
+                    headers: { "Content-Type": "application/json" }
+                });
+
+            const jsonResp = await response.json();
+
+            console.log(`GET ALL Accounts json response`);
+            console.log(jsonResp);
+    
+            return {
+                data: jsonResp.rows,
+            }
+              
+        } catch (error) {
+            console.error('Error ocurred while trying to get all registered accounts: ' + error);
+            console.log(error);
+            return { message: "Error ocurred while trying to get all registered accounts" };
+        }
+     }
+);
 
  
 export const getAllCategoriesList = createAsyncThunk<any, any, any>(
@@ -122,6 +159,15 @@ export const tranHistorySlice = createSlice({
                 console.log(action.payload);
                 state.ddlCategories = data;
             })
+
+            .addCase(getAllAccountsList.fulfilled, (state:TranHistoryState, action:PayloadAction<any>) =>{
+                const {data} = action.payload;
+                console.log("getAllAccountsList -> action.payload");
+                console.log(action.payload);
+                state.ddlAccounts = data;
+            })
+
+            
             
 
     },

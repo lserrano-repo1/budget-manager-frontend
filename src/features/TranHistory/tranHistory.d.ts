@@ -12,6 +12,7 @@ export interface TranHistoryState{
 
     tranHistoryList: TranHistoryData[];
     ddlCategories: DDLData[];
+    ddlAccounts: DDLData[];
 
     errorField : ErrorField[];
 }
