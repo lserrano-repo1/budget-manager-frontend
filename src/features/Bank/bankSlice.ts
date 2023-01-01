@@ -41,7 +41,7 @@ export const handleBankCreation = createAsyncThunk<any, any, any>(
         } catch (error) {
             console.error('Error ocurred while trying to create a new BANK: ' + error);
             console.log(error);
-            return { message: null, bankId: null };
+            return { message: 'Error ocurred while trying to create a new BANK', bankId: null };
         }
     }
 );
@@ -130,7 +130,6 @@ export const getByBankId = createAsyncThunk<any, any, any>(
         }
     }
 );
-
 
 
 export const deleteBankById = createAsyncThunk<any, any, any>(

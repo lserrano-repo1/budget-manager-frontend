@@ -5,6 +5,7 @@ import PersonSlice from '../features/Person/personSlice';
 import BankSlice from '../features/Bank/bankSlice';
 import DashboardSlice from '../features/Dashboard/dashboardSlice';
 import TranHistory from '../features/TranHistory/tranHistorySlice';
+import Transaction from '../features/Transactions/transactionSlice';
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     bankReducer: BankSlice,
     dashboardReducer: DashboardSlice,
     tranHistoryReducer : TranHistory,
+    transactionReducer : Transaction,
   },
 });
 

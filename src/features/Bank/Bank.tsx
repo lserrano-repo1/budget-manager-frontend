@@ -29,11 +29,14 @@ import { usr_token } from '../../features/Person/personSlice';
 
 
 const Bank = (props: BankProps) => {
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+
+    
     const usrToken = useAppSelector(usr_token);
     const [displaySuccess, setDisplaySuccess] = React.useState(false);
-    const dispatch = useAppDispatch();
-    
-    const navigate = useNavigate();
+   
+    {/** Security */}
     useEffect(() => {
         if(usrToken===""){
             navigate('/', { replace: true });
@@ -137,6 +140,7 @@ const Bank = (props: BankProps) => {
                     container
                     id="login-form-container-grid"
                     className="login-form-container">
+                          {/** PAGE TITLE */}
                     <Typography variant="h2">Bank Management</Typography>
 
                     <FormControl>
@@ -239,6 +243,7 @@ const Bank = (props: BankProps) => {
                         )}
                     </Box>
 
+                    {/** ACTION BUTTONS */}
                     <Box id="buttons-box" className="buttons-box">
                         <ActionButton
                             id="cancel-adding-bank-button"
@@ -283,6 +288,7 @@ const Bank = (props: BankProps) => {
                         )}
                     </Box>
 
+                    {/** DATA TABLE */}
                     <div>
                         <Typography variant="subtitle2">
                             <TableContainer component={Paper}>
@@ -371,3 +377,5 @@ export default connect(mapStateToProps, {
     handleInputValue,
     setMode,
 })(Bank);
+
+
