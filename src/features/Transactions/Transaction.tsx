@@ -71,7 +71,7 @@ const Transaction = (props: TransactionProps) => {
     return (
         <React.Fragment>
             <BaseLayout>
-                <Grid id="login-form-container-grid"
+                <Grid id="transaction-form-container-grid"
                     container
                     className="login-form-container">
                     {/** PAGE TITLE */}

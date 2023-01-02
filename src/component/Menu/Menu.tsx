@@ -50,11 +50,13 @@ export default function BasicTabs() {
         navigate('/dashboard', { replace: true });
     } else if (newValue === 1) {
         navigate('/bank', { replace: true });
-    } else if (newValue === 3) {
+    } else if (newValue === 4) {
         navigate('/tranhistory', { replace: true });
     } else if (newValue === 2) {
       navigate('/transaction', { replace: true });
-  }
+    } else if (newValue === 3) {
+      navigate('/transference', { replace: true });
+    }
 
   };
 
@@ -65,6 +67,7 @@ export default function BasicTabs() {
           <Tab label="Dashboard" {...a11yProps(0)} />
           <Tab label="Banks" {...a11yProps(1)} />
           <Tab label="Transaction" {...a11yProps(2)} />
+          <Tab label="Account Transfer" {...a11yProps(3)} />
           <Tab label="Transactions history" {...a11yProps(3)} />
          
         </Tabs>

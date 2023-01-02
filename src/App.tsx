@@ -12,6 +12,7 @@ import Bank from './features/Bank/Bank';
 import Dashboard from './features/Dashboard/Dashboard';
 import TranHistory from './features/TranHistory/TranHistory';
 import Transaction from './features/Transactions/Transaction';
+import AccTransference from './features/Transfer/Transference';
 
 
 
@@ -30,6 +31,7 @@ function App() {
               <Route path="/newuser" element={<NewUserForm/>} />
               <Route path="/bank" element={<Bank/>} />
               <Route path="/transaction" element={<Transaction/>} />
+              <Route path="/transference" element={<AccTransference/>} />
               <Route path="/tranhistory" element={<TranHistory/>} />
              
                 

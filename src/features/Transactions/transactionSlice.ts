@@ -87,7 +87,7 @@ export const getAllAccountsList = createAsyncThunk<any, any, any>(
             return {
                 data: jsonResp.rows,
             }
-              
+            
         } catch (error) {
             console.error('Error ocurred while trying to get all registered accounts: ' + error);
             console.log(error);
@@ -218,7 +218,7 @@ export const transactionSlice = createSlice({
             console.log("Setting Transaction Mode");
             console.log(action.payload);
             state.mode = action.payload;
-        }
+        },
     },
     extraReducers:(builder)=>{
         builder
@@ -286,7 +286,7 @@ function getNewValues(field: string, state: TransactionState, value: string) {
             state.transData.trnDescription=value;
             break;
     }
-}
+};
 
 export const {handleInputValue, setMode} = transactionSlice.actions;
 
