@@ -36,12 +36,6 @@ const Header = (props:PersonProps) => {
     }));
 
 
-    /*
-    const goToCreateNewUser = () => {
-        console.log('Redirecting to register a new user...');
-        navigate('/newuser', { replace: true });
-    };*/
-
     return (
         <React.Fragment>
             <AppBarStyled

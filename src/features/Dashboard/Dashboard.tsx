@@ -7,16 +7,36 @@ import { Box, Grid, Link, Paper, Table, TableBody
 import BaseLayout from '../../component/Layout/BaseLayout';
 import { RootState } from '../../app/store';
 import {connect } from 'react-redux';
-import { useAppDispatch } from '../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { usr_token } from '../../features/Person/personSlice';
+import { useNavigate } from 'react-router-dom';
 import './dashboard.scss';
 
 const Dashboard = (props: DashboardProps) => {
-   
+    const navigate = useNavigate();
+    const usrToken = useAppSelector(usr_token);
     const dispatch = useAppDispatch();
 
    useEffect(()=>{
         dispatch(getAllAccounts(null));
    },[]);
+
+
+
+    useEffect(() => {
+        if(usrToken==="") {
+            navigate('/login', { replace: true });
+        }
+    }, [usrToken]);
+
+    const goToTransferences =()=>{
+        navigate('/transference', { replace: true });
+    }
+
+    const goToTransaction =()=>{
+        navigate('/transaction', { replace: true });
+    }
+
 
 
     return (
@@ -30,17 +50,6 @@ const Dashboard = (props: DashboardProps) => {
                         Budget Manager Dashboard
                     </Typography>
 
-                    {/*<Grid
-                        container
-                        item
-                        md={10}
-                        lg={10}
-                        id="filters-container"
-                        style={{backgroundColor:'yellow'}}
-                        className="login-form-container"
-                    >
-                        <Box>Filters Component</Box>
-                    </Grid>*/}
 
                     <Grid container item
                         md={10}
@@ -109,13 +118,13 @@ const Dashboard = (props: DashboardProps) => {
                                                             </TableCell>
                                                             <TableCell component="th" scope="row">
                                                                 <Link id={`del-data-row-${index}`}
-                                                                   /* onClick={() => handleBankDataDelete(item)}*/   >
+                                                                   onClick={goToTransferences}   >
                                                                 Transference
                                                                 </Link>
                                                                 &nbsp;|&nbsp;
                                                                 <Link
                                                                     id={`upd-data-row-${index}`}
-                                                                    /*onClick={() => retrieveDataToUpdate(item)}*/
+                                                                    onClick={goToTransaction}
                                                                     >
                                                                     Transaction
                                                                 </Link>

@@ -21,13 +21,16 @@ export interface TransferenceState {
     ddlAccounts: DDLData[]; //source account list
     ddlDstCurrencies: DDLData[];
     ddlSrcCurrencies: DDLData[];
+
+    transferExchangeRate:string;
+    transSuccedeed:boolean|null;
 };
 
 
 
 export interface TransferenceData{
-    curId:string;
     accId:string;
+    curId:string;
     catId:string;
     typId:string;
     trnAmount:string;
@@ -39,6 +42,11 @@ export interface TransferenceData{
 export interface CurrencyByAccountData{
     accId: string;
     transfAccType: "SRC"|"DST"; /** Account Source or Account destination */
+}
+
+export interface TransferProcessData {
+    srcAccount : TransferenceData;
+    dstAccount : TransferenceData;
 }
 
 

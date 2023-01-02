@@ -5,10 +5,14 @@ import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Grid, Link, Typography, FormControl, Box, Alert } from '@mui/material';
 import {handleInputValue, setMode, handleClearForm} from './transferenceSlice';
-import { TransferenceData, TransferenceProps, CurrencyByAccountData} from './transference.d';
+import { TransferenceData
+    , TransferenceProps
+    , TransferProcessData} from './transference.d';
 import { getAllAccountsList
     , getCurrencyByAccount
-    , getAccountSummary} from './transferenceSlice';
+    , getAccountSummary
+    , getExchangeRate
+    , handleTransferenceCreate} from './transferenceSlice';
 import BaseLayout from '../../component/Layout/BaseLayout';
 import ActionButton from '../../component/Buttons/Button';
 import InputField from '../../component/InputField/InputField';
@@ -23,7 +27,6 @@ const AccTransference =(props: TransferenceProps)=>{
     const navigate = useNavigate();
 
     const usrToken = useAppSelector(usr_token);
-    const [displaySuccess, setDisplaySuccess] = React.useState(false);
 
     {/** Security */}
     useEffect(() => {
@@ -44,13 +47,69 @@ const AccTransference =(props: TransferenceProps)=>{
 
         dispatch(getCurrencyByAccount( {accId:props.transfer.dstAccountData.accId, transfAccType: "DST"} )); 
 
-    },[props.transfer.srcAccountData.accId, props.transfer.dstAccountData.accId]);
+        dispatch(getExchangeRate(props.transfer.dstAccountData.curId));
+
+    },[props.transfer.srcAccountData.accId
+        , props.transfer.dstAccountData.accId
+        , props.transfer.dstAccountData.curId]);
 
     /**
      * Clear formulary selections
      */
     const handleClearTransfer = ()=>{
         dispatch(handleClearForm(null));
+    }
+
+    /**
+     * Perform transference
+     */
+    const handleTransferenceProcess = ()=>{
+
+        const transferObjectData:TransferProcessData={
+            srcAccount: {
+                accId: props.transfer.srcAccountData.accId,
+                curId: props.transfer.srcAccountData.curId,
+                catId: '',
+                typId:'2',
+                trnAmount: props.transfer.srcAccountData.trnAmount,
+                trnDescription: 'Transf. SRC (expense)' 
+            },
+            dstAccount: {
+                accId: props.transfer.dstAccountData.accId,
+                curId: props.transfer.dstAccountData.curId,
+                catId: '',
+                typId:'1',
+                trnAmount: calculateExchangeRateAmount(props.transfer.srcAccountData.trnAmount),
+                trnDescription: 'Transf. DST (income) - ExchRate: ' + props.transfer.transferExchangeRate   
+            }
+        };
+
+        dispatch(handleTransferenceCreate(transferObjectData));
+        
+        console.log(transferObjectData);
+
+        dispatch(handleClearForm(null));
+
+    }
+
+    function calculateExchangeRateAmount(transferAmount: string) {
+        try {
+            if (
+                transferAmount !== '' &&
+                transferAmount !== undefined &&
+                props.transfer.transferExchangeRate !== ''
+            ) {
+                const exchRate = parseFloat(props.transfer.transferExchangeRate);
+                const val = parseFloat(transferAmount);
+
+                return (val * exchRate).toString();
+            } else {
+                return transferAmount;
+            }
+        } catch (error) {
+            console.log(error);
+            return transferAmount;
+        }
     }
 
     return (
@@ -215,7 +274,7 @@ const AccTransference =(props: TransferenceProps)=>{
                                     name="create-new-user-btn"
                                     renderBtnOkSubmitNext={true}
                                     label="Proceed"
-                                    /*onClickAction={goToCreateNewUser}*/
+                                    onClickAction={handleTransferenceProcess}
                                 />
                             </Box>
                         )}
@@ -223,6 +282,27 @@ const AccTransference =(props: TransferenceProps)=>{
                     </Grid> {/** END of destination account - column 2 */}
 
                 </Grid>
+
+                {/** DISPLAY MESSAGES */}
+                {props.transfer.transSuccedeed!==null && (
+                    <Box id="messages-display" style={{ paddingTop: '10px' }}>
+                        { props.transfer.transSuccedeed && (
+                            <Alert severity="success">
+                                Transference performed successfully.
+                            </Alert>
+                        )}
+
+                        {!props.transfer.transSuccedeed && (
+                            <Alert severity="error">
+                                Error, Transference failed!
+                            </Alert>
+                        )}
+                    </Box>
+                )}
+                
+
+              
+
 
             </Grid>
         </BaseLayout>
