@@ -46,17 +46,30 @@ export default function BasicTabs() {
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
 
+    
     if (newValue === 0) {
         navigate('/dashboard', { replace: true });
-    } else if (newValue === 1) {
+    } 
+    else if (newValue === 1) {
         navigate('/bank', { replace: true });
-    } else if (newValue === 4) {
-        navigate('/tranhistory', { replace: true });
-    } else if (newValue === 2) {
-      navigate('/transaction', { replace: true });
-    } else if (newValue === 3) {
-      navigate('/transference', { replace: true });
+    } 
+     else if (newValue === 2) {
+      navigate('/account', { replace: true });
     }
+    else if (newValue === 3) {
+      navigate('/transaction', { replace: true });
+    }
+     else if (newValue === 4) {
+      navigate('/transference', { replace: true });
+    } 
+    else if (newValue === 5) {
+        navigate('/tranhistory', { replace: true });
+    } 
+     
+   
+    
+   
+
 
   };
 
@@ -64,11 +77,13 @@ export default function BasicTabs() {
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+         
           <Tab label="Dashboard" {...a11yProps(0)} />
           <Tab label="Banks" {...a11yProps(1)} />
-          <Tab label="Transaction" {...a11yProps(2)} />
-          <Tab label="Account Transfer" {...a11yProps(3)} />
-          <Tab label="Transactions history" {...a11yProps(3)} />
+          <Tab label="Account" {...a11yProps(2)} />
+          <Tab label="Transaction" {...a11yProps(3)} />
+          <Tab label="Account Transfer" {...a11yProps(4)} />
+          <Tab label="Transactions history" {...a11yProps(5)} />
          
         </Tabs>
        

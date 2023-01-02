@@ -7,6 +7,7 @@ import DashboardSlice from '../features/Dashboard/dashboardSlice';
 import TranHistory from '../features/TranHistory/tranHistorySlice';
 import Transaction from '../features/Transactions/transactionSlice';
 import AccTransfer from '../features/Transfer/transferenceSlice';
+import Account from '../features/Account/accountSlice';
 
 export const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ export const store = configureStore({
     tranHistoryReducer : TranHistory,
     transactionReducer : Transaction,
     transferReducer : AccTransfer,
+    accountReducer: Account,
   },
 });
 
