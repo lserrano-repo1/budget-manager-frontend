@@ -62,7 +62,7 @@ export const getCurrencyByAccount = createAsyncThunk<any, any, any>(
 
 export const getAllAccountsList = createAsyncThunk<any, any, any>(
     "ddl/accounts",
-     async (data: DDLData ) => {
+     async (dataIn: DDLData ) => {
         try {
             console.info(`GET All bank acounts`);
             const urlToFetch = queryString.parseUrl(process.env.REACT_APP_DDL_ACCOUNTS!);
@@ -71,7 +71,7 @@ export const getAllAccountsList = createAsyncThunk<any, any, any>(
             console.info(urlToFetch.url);
 
             console.info(`DDLData`);
-            console.info(data);
+            console.info(dataIn);
 
             const response = await fetch(urlToFetch.url,
                 {
@@ -98,7 +98,7 @@ export const getAllAccountsList = createAsyncThunk<any, any, any>(
 
 export const getAllCategoriesList = createAsyncThunk<any, any, any>(
     "ddl/categories",
-     async (data: DDLData) => {
+     async (dataIn: DDLData) => {
         try {
             console.info(`GET All categories`);
             const urlToFetch = queryString.parseUrl(process.env.REACT_APP_DDL_CATEGORIES!);
@@ -107,7 +107,7 @@ export const getAllCategoriesList = createAsyncThunk<any, any, any>(
             console.info(urlToFetch.url);
 
             console.info(`DDLData`);
-            console.info(data);
+            console.info(dataIn);
 
             const response = await fetch(urlToFetch.url,
                 {
@@ -135,7 +135,7 @@ export const getAllCategoriesList = createAsyncThunk<any, any, any>(
 
 export const getTransactionTypes = createAsyncThunk<any, any, any>(
     "ddl/tranTypes",
-     async (data: DDLData) => {
+     async (dataIn: DDLData) => {
         try{
             console.info(`GET All transaction types`);
             const urlToFetch = queryString.parseUrl(process.env.REACT_APP_DDL_TRAN_TYPES! );
@@ -236,7 +236,9 @@ export const transactionSlice = createSlice({
                 state.ddlCurrencies = data;
 
                 //TODO: Do this better. 
+                if (data !== undefined && data.length > 0) {
                 state.transData.curId = data[0].value;
+                }
             })
 
             .addCase(getAllCategoriesList.fulfilled, (state:TransactionState, action:PayloadAction<any>) =>{

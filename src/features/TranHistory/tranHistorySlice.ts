@@ -9,9 +9,9 @@ import { format, parse, parseISO } from 'date-fns';
 
 const initialState:TranHistoryState={
     tranHistoryFilters: {
-        accId:null,
-        catId:null,
-        trnCreationDate:null
+        accId:'',
+        catId:'',
+        trnCreationDate:''
     },
     errorField: [],
     tranHistoryList: [],
@@ -80,7 +80,7 @@ export const getAllCategoriesList = createAsyncThunk<any, any, any>(
 
             console.log(`GET ALL Categories json response`);
             console.log(jsonResp);
-    
+
             return {
                 data: jsonResp.rows,
             }
@@ -147,9 +147,9 @@ export const tranHistorySlice = createSlice({
 
         clearFilters: (state: TranHistoryState, action: PayloadAction<any>) => {
             const actionpl = action.payload;
-            state.tranHistoryFilters.accId=null;
-            state.tranHistoryFilters.catId=null;
-            state.tranHistoryFilters.trnCreationDate=null;
+            state.tranHistoryFilters.accId='';
+            state.tranHistoryFilters.catId='';
+            state.tranHistoryFilters.trnCreationDate='';
         },
     },
     extraReducers:(builder)=>{

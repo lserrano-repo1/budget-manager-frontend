@@ -4,7 +4,7 @@ import { RootState } from '../../app/store';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Grid, Link, Typography, FormControl, Box, Alert } from '@mui/material';
-import {handleInputValue, setMode} from './transferenceSlice';
+import {handleInputValue, setMode, handleClearForm} from './transferenceSlice';
 import { TransferenceData, TransferenceProps, CurrencyByAccountData} from './transference.d';
 import { getAllAccountsList
     , getCurrencyByAccount
@@ -36,7 +36,6 @@ const AccTransference =(props: TransferenceProps)=>{
     /** If source accId changes then all fields needs to be refreshed */
     useEffect(()=>{
 
-
         dispatch(getAllAccountsList(null)); //source account list
 
         dispatch(getCurrencyByAccount( {accId:props.transfer.srcAccountData.accId, transfAccType: "SRC"} ));
@@ -47,7 +46,12 @@ const AccTransference =(props: TransferenceProps)=>{
 
     },[props.transfer.srcAccountData.accId, props.transfer.dstAccountData.accId]);
 
-
+    /**
+     * Clear formulary selections
+     */
+    const handleClearTransfer = ()=>{
+        dispatch(handleClearForm(null));
+    }
 
     return (
 
@@ -199,11 +203,11 @@ const AccTransference =(props: TransferenceProps)=>{
                         && ( 
                             <Box id="buttons-box" className="transfer-action-buttons-box">
                                 <ActionButton
-                                    id="cancel-button"
-                                    name="cancel-button"
+                                    id="transfer-cancel-button"
+                                    name="transfer-cancel-button"
                                     renderBtnCancel={true}
-                                    label="Cancel"
-                                    /*onClickAction={goToLandingPage}*/
+                                    label="Clear"
+                                    onClickAction={handleClearTransfer}
                                 />
 
                                 <ActionButton
@@ -239,4 +243,5 @@ const mapStateToProps =(state: RootState) =>({
 export default connect(mapStateToProps,{
     handleInputValue,
     setMode,
+    handleClearForm,
 })(AccTransference);

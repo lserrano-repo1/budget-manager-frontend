@@ -148,6 +148,12 @@ export const getAccountSummary = createAsyncThunk<any, any, any>(
 });
 
 
+/** Processess to create money transferences between accounts */
+
+
+
+
+
 
 
 
@@ -165,7 +171,28 @@ export const transferenceSlice = createSlice({
             console.log("Setting Transaction Mode");
             console.log(action.payload);
             state.mode = action.payload;
-        }
+        },
+        handleClearForm: (state: TransferenceState, action: PayloadAction<any>) => {
+            const act = action.payload;
+            console.log("Clearing selections and aborting process");
+            
+            state.srcAccountBalance='';
+            state.srcAccountData.accId='';
+            state.srcAccountData.catId='';
+            state.srcAccountData.curId='';
+            state.srcAccountData.trnAmount='';
+            state.srcAccountData.trnDescription='';
+            state.srcAccountData.typId='';
+
+            state.dstAccountBalance='';
+            state.dstAccountData.accId='';
+            state.dstAccountData.catId='';
+            state.dstAccountData.curId='';
+            state.dstAccountData.trnAmount='';
+            state.dstAccountData.trnDescription='';
+            state.dstAccountData.typId='';
+
+        },
     },
     
     extraReducers:(builder)=>{
@@ -239,6 +266,6 @@ function getNewValues(field: string, state: TransferenceState, value: string) {
     }
 };
 
-export const {handleInputValue, setMode} = transferenceSlice.actions;
+export const {handleInputValue, setMode, handleClearForm} = transferenceSlice.actions;
 
 export default transferenceSlice.reducer;
