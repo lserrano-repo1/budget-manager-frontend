@@ -90,7 +90,7 @@ const TranHistory =(props:TranHistoryProps)=>{
                         <Grid item md={12} lg={12} id="filters-container-main-box"
                          className="data-form-row">
                             
-                            <InputSelectField
+                        <InputSelectField
                             id="filter-category"
                             name="filter-category"
                             label="Select Category:"
