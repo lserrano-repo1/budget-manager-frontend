@@ -24,80 +24,6 @@ const initialState:AccountState ={
 };
 
 
-export const getAllUsers = createAsyncThunk<any, any, any>(
-    'account/getAllUsers',
-    async (dataIn: DDLData) => {
-        try {
-            console.info(`GET All Users`);
-            const urlToFetch = queryString.parseUrl(process.env.REACT_APP_DDL_USERS!);
-
-            console.info('{urlToFetch,urlToFetch.url}');
-            console.info(urlToFetch.url);
-
-            console.info(`DDLData`);
-            console.info(dataIn);
-        
-            const response = await fetch(urlToFetch.url,
-                {
-                    method: 'GET',
-                    headers: { "Content-Type": "application/json" }
-                });
-
-            const jsonResp = await response.json();
-
-            console.log(`GET ALL Users, JSON response`);
-            console.log(jsonResp);
-    
-            return {
-                data: jsonResp.rows,
-            }
-        } catch (error) {
-            console.error('Error ocurred while trying to get all registered users: ' + error);
-            console.log(error);
-            return { message: "Error ocurred while trying to get all registered users" };
-        }
-    }
-);
-
-
-
-export const getAllBanks = createAsyncThunk<any, any, any>(
-    'account/getAllBanks',
-    async (dataIn: DDLData) => {
-        try {
-            console.info(`GET All Banks`);
-            const urlToFetch = queryString.parseUrl(process.env.REACT_APP_DDL_BANKS!);
-
-            console.info('{urlToFetch,urlToFetch.url}');
-            console.info(urlToFetch.url);
-
-            console.info(`DDLData`);
-            console.info(dataIn);
-        
-            const response = await fetch(urlToFetch.url,
-                {
-                    method: 'GET',
-                    headers: { "Content-Type": "application/json" }
-                });
-
-            const jsonResp = await response.json();
-
-            console.log(`GET ALL Banks, JSON response`);
-            console.log(jsonResp);
-    
-            return {
-                data: jsonResp.rows,
-            }
-        } catch (error) {
-            console.error('Error ocurred while trying to get all registered banks: ' + error);
-            console.log(error);
-            return { message: "Error ocurred while trying to get all registered banks" };
-        }
-    }
-);
-
-
-
 export const loadDDLValues = createAsyncThunk<any, any, any>(
     'account/loadDDLValues',
     async (dataIn: LoadDDLValuesData) => {
@@ -184,8 +110,6 @@ export const accountSlice = createSlice({
                             break;
                      }
                 }
-               
-                
             })
 
 
