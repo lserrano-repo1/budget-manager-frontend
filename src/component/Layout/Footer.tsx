@@ -29,8 +29,8 @@ const Footer =()=>{
                         <Grid id='creators-name' item xs={10} sm={10} md={10} lg={10} xl={10}>
                             <Box id='creators-name-box1' className='copyright-text'>
                                 <TypographyStyled id='copyrightText' variant="body2"
-                                    aria-label='DevCreators 2022'>
-                                    DevCreators 2022
+                                    aria-label='LSerrano 2022'>
+                                    &copy; LSerrano 2023
                                 </TypographyStyled>
                             </Box>
                         </Grid>

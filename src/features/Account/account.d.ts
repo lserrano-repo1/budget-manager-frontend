@@ -10,10 +10,16 @@ export interface AccountProps{
 
 export interface AccountState{
     accountData: AccountData;
+    
     errorField : ErrorField[];
     accountList: AccountListData[];
 
     mode:"Update"|"Delete"|"Create"|"Display"|"Unknown";
+
+    ddlUsers:DDLData[];
+    ddlBanks:DDLData[];
+    ddlCurrencies: DDLData[];
+
 }
 
 
@@ -23,6 +29,7 @@ export interface AccountData {
     usrId: string;
     bnkId: string;
     curId: string
+    accNumber:string;
     accBalance: string
 }
 
@@ -34,4 +41,9 @@ export interface AccountListData {
     curName:string|null;
     accLastUpdate:string|null;
     accBalance:string|null
+}
+
+
+export interface LoadDDLValuesData {
+    list: "USERS"|"BANKS"|"CURRENCIES";
 }
