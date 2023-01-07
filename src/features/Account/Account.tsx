@@ -8,6 +8,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { DataGrid , GridColDef, GridRowsProp } from '@mui/x-data-grid';
 import { useNavigate } from 'react-router-dom';
 import BaseLayout from '../../component/Layout/BaseLayout';
 import ActionButton from '../../component/Buttons/Button';
@@ -18,7 +19,7 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { usr_token } from '../../features/Person/personSlice';
 import{ handleInputValue, setMode,} from './accountSlice'
 import InputSelectField from '../../component/SelectField/InputSelectField';
-import {loadDDLValues} from './accountSlice';
+import {loadDDLValues, handleAccountCreation, getAccountsList} from './accountSlice';
 
 
 
@@ -40,7 +41,29 @@ const Account = (props: AccountProps) => {
       dispatch(loadDDLValues({list: "USERS"}));
       dispatch(loadDDLValues({list: "BANKS"}));
       dispatch(loadDDLValues({list: "CURRENCIES"}));
+      dispatch(getAccountsList(null));
     }, [])
+
+    useEffect(() => {
+        dispatch(getAccountsList(null));
+      }, [displaySuccess, props.account.mode])
+
+
+    /** DATA GRID */
+    const columns: GridColDef[] = [
+        { field: 'accId', headerName: 'ID', width: 15 },
+        { field: 'bankName', headerName: 'Bank', width: 150 },
+        { field: 'curName', headerName: 'Currency', width: 150 },
+        { field: 'accNumber', headerName: 'Number', width: 150 },
+        { field: 'accCreationDate', headerName: 'Created', width: 150 },
+        { field: 'accLastUpdate', headerName: 'Last updated', width: 150 },
+        { field: 'accBalance', headerName: 'Balance', width: 150 },
+      ];
+
+      const rows: GridRowsProp = [
+        { id: 1, accId: '1', bankName: 'CITY',curName:"algo", accNumber:"otro", accCreationDate:"mas", accLastUpdate:"no", accBalance:"hay" },
+       
+      ];
     
 
     const hideAddAccountForm = () => {
@@ -49,20 +72,22 @@ const Account = (props: AccountProps) => {
     };
 
 
+    /**
+     * CREATE new accounts
+     */
     const handleNewAccount = () => {
         console.log('Attempting to create a new account');
-       //TODO: redefine this function
-        /*
-        const data: BankData = {
-            bankName: props.bank.bankData.bankName,
-            bankAddress: props.bank.bankData.bankAddress,
-            bankContact: props.bank.bankData.bankContact,
-            bankEmail: props.bank.bankData.bankEmail,
-            bankId: '',
+     
+        const data: AccountData = {
+            usrId: props.account.accountData.usrId,
+            bnkId: props.account.accountData.bnkId,
+            curId: props.account.accountData.curId,
+            accNumber: props.account.accountData.accNumber,
+            accBalance: props.account.accountData.accBalance,
         };
         
-        dispatch(handleBankCreation(data));
-        */
+        dispatch(handleAccountCreation(data));
+        
         setDisplaySuccess(true);
     };
 
@@ -264,6 +289,13 @@ const Account = (props: AccountProps) => {
                             />
                         )}
                     </Box>
+
+                      {/** DATA TABLE */}
+                      <div style={{ height: 400, width: "60%" }}>
+                       
+                            <DataGrid  columns={columns} rows={props.account.accountList} />
+                      
+                    </div>
 
 
 

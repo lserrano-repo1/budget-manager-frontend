@@ -187,7 +187,7 @@ export const handleTransactionCreation = createAsyncThunk<any, any, any>(
             });
 
             const jsonResp = await response.json();
-            console.log(`CREATE TRANSACTION json response`);
+            console.log(`CREATE New Transaction, JSON response`);
             console.log(jsonResp);
 
             return {
