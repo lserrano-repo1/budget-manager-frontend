@@ -24,9 +24,12 @@ const Header = (props:PersonProps) => {
     const navigate = useNavigate();
    
     useEffect(() => {
+        //TODO: verify how to handle this validation
+        /*
         if(usrToken===""){
             navigate('/login', { replace: true });
         }
+        */
     }, [usrToken]);
     
  
