@@ -184,7 +184,7 @@ const AccTransference =(props: TransferenceProps)=>{
                                     id="src-amount-to-transfer"
                                     name="src-amount-to-transfer"
                                     type="text"
-                                    label="Current balance"
+                                    label="Amount to transfer"
                                     value={props.transfer.srcAccountData.trnAmount}
                                     inputFieldContainerStyle={{ width: '150px' }}
                                     onChange={(e: any) =>
