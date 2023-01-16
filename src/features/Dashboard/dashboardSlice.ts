@@ -21,7 +21,7 @@ export const getAllAccounts = createAsyncThunk<any,any,any>(
     async(data:AccountData) =>{
         try {
             console.info(`GET All accounts`);
-            const urlToFetch = queryString.parseUrl(process.env.REACT_APP_ACCOUNT_ALL!);
+            const urlToFetch = queryString.parseUrl(process.env.REACT_APP_BACK_END_BASE_URL+process.env.REACT_APP_ACCOUNT_ALL!);
 
             console.info('{urlToFetch,urlToFetch.url}');
             console.info(urlToFetch.url);

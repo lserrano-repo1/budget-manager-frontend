@@ -25,7 +25,7 @@ export const getAllAccountsList = createAsyncThunk<any, any, any>(
      async (data: DDLData) => {
         try {
             console.info(`GET All bank aacounts`);
-            const urlToFetch = queryString.parseUrl(process.env.REACT_APP_DDL_ACCOUNTS!);
+            const urlToFetch = queryString.parseUrl(process.env.REACT_APP_BACK_END_BASE_URL+process.env.REACT_APP_DDL_ACCOUNTS!);
 
             console.info('{urlToFetch,urlToFetch.url}');
             console.info(urlToFetch.url);
@@ -62,7 +62,7 @@ export const getAllCategoriesList = createAsyncThunk<any, any, any>(
      async (data: DDLData) => {
         try {
             console.info(`GET All categories`);
-            const urlToFetch = queryString.parseUrl(process.env.REACT_APP_DDL_CATEGORIES!);
+            const urlToFetch = queryString.parseUrl(process.env.REACT_APP_BACK_END_BASE_URL+process.env.REACT_APP_DDL_CATEGORIES!);
 
             console.info('{urlToFetch,urlToFetch.url}');
             console.info(urlToFetch.url);
@@ -100,7 +100,7 @@ export const getAllTransactionsForFilter = createAsyncThunk<any, any, any>(
     async (data: TranHistoryData) => {
         try {
             console.info(`POST retrieve all transactions`);
-            const urlToFetch = queryString.parseUrl(process.env.REACT_APP_TRANS_HISTORY_FILTER!);
+            const urlToFetch = queryString.parseUrl(process.env.REACT_APP_BACK_END_BASE_URL+process.env.REACT_APP_TRANS_HISTORY_FILTER!);
 
             console.info('{urlToFetch,urlToFetch.url}');
             console.info(urlToFetch.url);

@@ -29,7 +29,7 @@ export const getCurrencyByAccount = createAsyncThunk<any, any, any>(
      async (accId: string) => {
         try{
             console.info(`GET All curencies ralted to the given account`);
-            const urlToFetch = queryString.parseUrl(process.env.REACT_APP_DDL_CURRENCY_BY_ACCOUNT!+`/${accId}`);
+            const urlToFetch = queryString.parseUrl(process.env.REACT_APP_BACK_END_BASE_URL+process.env.REACT_APP_DDL_CURRENCY_BY_ACCOUNT!+`/${accId}`);
 
             console.info('{urlToFetch,urlToFetch.url}');
             console.info(urlToFetch.url);
@@ -65,7 +65,7 @@ export const getAllAccountsList = createAsyncThunk<any, any, any>(
      async (dataIn: DDLData ) => {
         try {
             console.info(`GET All bank acounts`);
-            const urlToFetch = queryString.parseUrl(process.env.REACT_APP_DDL_ACCOUNTS!);
+            const urlToFetch = queryString.parseUrl(process.env.REACT_APP_BACK_END_BASE_URL+process.env.REACT_APP_DDL_ACCOUNTS!);
 
             console.info('{urlToFetch,urlToFetch.url}');
             console.info(urlToFetch.url);
@@ -101,7 +101,7 @@ export const getAllCategoriesList = createAsyncThunk<any, any, any>(
      async (dataIn: DDLData) => {
         try {
             console.info(`GET All categories`);
-            const urlToFetch = queryString.parseUrl(process.env.REACT_APP_DDL_CATEGORIES!);
+            const urlToFetch = queryString.parseUrl(process.env.REACT_APP_BACK_END_BASE_URL+process.env.REACT_APP_DDL_CATEGORIES!);
 
             console.info('{urlToFetch,urlToFetch.url}');
             console.info(urlToFetch.url);
@@ -138,7 +138,7 @@ export const getTransactionTypes = createAsyncThunk<any, any, any>(
      async (dataIn: DDLData) => {
         try{
             console.info(`GET All transaction types`);
-            const urlToFetch = queryString.parseUrl(process.env.REACT_APP_DDL_TRAN_TYPES! );
+            const urlToFetch = queryString.parseUrl(process.env.REACT_APP_BACK_END_BASE_URL+process.env.REACT_APP_DDL_TRAN_TYPES! );
 
             console.info('{urlToFetch,urlToFetch.url}');
             console.info(urlToFetch.url);
@@ -172,7 +172,7 @@ export const handleTransactionCreation = createAsyncThunk<any, any, any>(
         try {
 
             console.info(`- Transaction Create @ handleTransactionCreation -`);
-            const urlToFetch = queryString.parseUrl(process.env.REACT_APP_TRANSACTION_CREATE! );
+            const urlToFetch = queryString.parseUrl(process.env.REACT_APP_BACK_END_BASE_URL+process.env.REACT_APP_TRANSACTION_CREATE! );
 
             console.info('{urlToFetch,urlToFetch.url}');
             console.info(urlToFetch.url);

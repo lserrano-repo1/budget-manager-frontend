@@ -36,15 +36,15 @@ export const loadDDLValues = createAsyncThunk<any, any, any>(
             switch(dataIn.list){
                 case 'USERS':
                     console.info(`GET All Users`);
-                    urlToFetch = queryString.parseUrl(process.env.REACT_APP_DDL_USERS!);
+                    urlToFetch = queryString.parseUrl(process.env.REACT_APP_BACK_END_BASE_URL+process.env.REACT_APP_DDL_USERS!);
                     break;
                 case 'BANKS':
                     console.info(`GET All Banks`);
-                    urlToFetch = queryString.parseUrl(process.env.REACT_APP_DDL_BANKS!);
+                    urlToFetch = queryString.parseUrl(process.env.REACT_APP_BACK_END_BASE_URL+process.env.REACT_APP_DDL_BANKS!);
                     break;
                 case 'CURRENCIES':
                     console.info(`GET All Currencies`);
-                    urlToFetch = queryString.parseUrl(process.env.REACT_APP_DDL_CURRENCIES!);
+                    urlToFetch = queryString.parseUrl(process.env.REACT_APP_BACK_END_BASE_URL+process.env.REACT_APP_DDL_CURRENCIES!);
                     break;
             }
 
@@ -84,7 +84,7 @@ export const handleAccountCreation = createAsyncThunk<any, any, any>(
 
             // STEP 1 - CREATE ACCOUNT 
             console.info(`- Account Create @ handleAccountCreation -`);
-            const urlToFetch = queryString.parseUrl(process.env.REACT_APP_ACCOUNT_CREATE! );
+            const urlToFetch = queryString.parseUrl(process.env.REACT_APP_BACK_END_BASE_URL+process.env.REACT_APP_ACCOUNT_CREATE! );
 
             console.info('{urlToFetch,urlToFetch.url}');
             console.info(urlToFetch.url);
@@ -120,7 +120,7 @@ export const handleAccountCreation = createAsyncThunk<any, any, any>(
 
             
                 console.info(`-  Transference transaction Create @ handleAccountCreation -`);
-                const dstUrlToFetch = queryString.parseUrl(process.env.REACT_APP_TRANSACTION_CREATE! );
+                const dstUrlToFetch = queryString.parseUrl(process.env.REACT_APP_BACK_END_BASE_URL+process.env.REACT_APP_TRANSACTION_CREATE! );
     
                 console.info('{dstUrlToFetch,dstUrlToFetch.url}');
                 console.info(dstUrlToFetch.url);
@@ -175,7 +175,7 @@ export const getAccountsList = createAsyncThunk<any,any,any>(
     async(dataIn:AccountData) =>{
         try {
             console.info(`GET All accounts`);
-            const urlToFetch = queryString.parseUrl(process.env.REACT_APP_ACCOUNT_ALL!);
+            const urlToFetch = queryString.parseUrl(process.env.REACT_APP_BACK_END_BASE_URL+process.env.REACT_APP_ACCOUNT_ALL!);
 
             console.info('{urlToFetch,urlToFetch.url}');
             console.info(urlToFetch.url);

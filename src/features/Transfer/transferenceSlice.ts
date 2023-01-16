@@ -42,7 +42,7 @@ export const getAllAccountsList = createAsyncThunk<any, any, any>(
      async (dataIn: DDLData ) => {
         try {
             console.info(`GET All Source (SRC) bank acounts`);
-            const urlToFetch = queryString.parseUrl(process.env.REACT_APP_DDL_ACCOUNTS!);
+            const urlToFetch = queryString.parseUrl(process.env.REACT_APP_BACK_END_BASE_URL+process.env.REACT_APP_DDL_ACCOUNTS!);
 
             console.info('{urlToFetch,urlToFetch.url}');
             console.info(urlToFetch.url);
@@ -79,7 +79,7 @@ export const getCurrencyByAccount = createAsyncThunk<any, any, any>(
      async (dataIn: CurrencyByAccountData) => {
         try{
             console.info(`GET All curencies ralted to the given account`);
-            const urlToFetch = queryString.parseUrl(process.env.REACT_APP_DDL_CURRENCY_BY_ACCOUNT!+`/${dataIn.accId}`);
+            const urlToFetch = queryString.parseUrl(process.env.REACT_APP_BACK_END_BASE_URL+process.env.REACT_APP_DDL_CURRENCY_BY_ACCOUNT!+`/${dataIn.accId}`);
 
             console.info('{urlToFetch,urlToFetch.url}');
             console.info(urlToFetch.url);
@@ -117,7 +117,7 @@ export const getAccountSummary = createAsyncThunk<any, any, any>(
      async (dataIn: CurrencyByAccountData) => {
         try{
             console.info(`GET account summary (balance) given its ID`);
-            const urlToFetch = queryString.parseUrl(process.env.REACT_APP_ACCOUNT_SUMMARY!+`/${dataIn.accId}`);
+            const urlToFetch = queryString.parseUrl(process.env.REACT_APP_BACK_END_BASE_URL+process.env.REACT_APP_ACCOUNT_SUMMARY!+`/${dataIn.accId}`);
 
             console.info('{urlToFetch,urlToFetch.url}');
             console.info(urlToFetch.url);
@@ -156,7 +156,7 @@ export const getExchangeRate = createAsyncThunk<any, any, any>(
      async (curId: string) => {
         try{
             console.info(`GET Exchange rate for a given currency id`);
-            const urlToFetch = queryString.parseUrl(process.env.REACT_APP_EXCHANGE_RATE!+`/${curId}`);
+            const urlToFetch = queryString.parseUrl(process.env.REACT_APP_BACK_END_BASE_URL+process.env.REACT_APP_EXCHANGE_RATE!+`/${curId}`);
 
             console.info('{urlToFetch,urlToFetch.url}');
             console.info(urlToFetch.url);
@@ -194,7 +194,7 @@ export const handleTransferenceCreate = createAsyncThunk<any, any, any>(
 
             // FIRST TRANSACTION over source account
             console.info(`-  [SRC] Transference transaction Create @ handleTransferenceCreate -`);
-            const srcUrlToFetch = queryString.parseUrl(process.env.REACT_APP_TRANSACTION_CREATE! );
+            const srcUrlToFetch = queryString.parseUrl(process.env.REACT_APP_BACK_END_BASE_URL+process.env.REACT_APP_TRANSACTION_CREATE! );
 
             console.info('{srcUrlToFetch,srcUrlToFetch.url}');
             console.info(srcUrlToFetch.url);
@@ -219,7 +219,7 @@ export const handleTransferenceCreate = createAsyncThunk<any, any, any>(
 
              // SECOND TRANSACTION over destination account
             console.info(`-  [DST] Transference transaction Create @ handleTransferenceCreate -`);
-            const dstUrlToFetch = queryString.parseUrl(process.env.REACT_APP_TRANSACTION_CREATE! );
+            const dstUrlToFetch = queryString.parseUrl(process.env.REACT_APP_BACK_END_BASE_URL+process.env.REACT_APP_TRANSACTION_CREATE! );
 
             console.info('{dstUrlToFetch,dstUrlToFetch.url}');
             console.info(dstUrlToFetch.url);
