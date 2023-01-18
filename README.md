@@ -1,3 +1,37 @@
+
+
+# budget-manager-frontend
+(Core Code upskilling) Luis Serrano's Budget Manager, backend project.
+
+
+# How to run it
+Use: $> npm start
+
+# docker compile front image 
+```$> docker build -t budgetman-webapp:1.0.0 .```
+### Running 
+```$>  docker run -d -p 8888:80 budgetman-webapp:1.0.0   ```
+
+### Register image in docker hub
+```
+1) docker tag budgetman-webapp:1.0.0 luserrano/budgetman-frontend:1.0.0
+2) docker push luserrano/budgetman-frontend:1.0.0
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
