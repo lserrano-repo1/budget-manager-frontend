@@ -77,6 +77,8 @@ const Account = (props: AccountProps) => {
      */
     const handleNewAccount = () => {
         console.log('Attempting to create a new account');
+
+       // let accBalanceStr:string= (parseFloat(props.account.accountData.accBalance)/2).toFixed(2);
      
         const data: AccountData = {
             usrId: props.account.accountData.usrId,

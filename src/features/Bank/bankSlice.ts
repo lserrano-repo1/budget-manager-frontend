@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { InputChange } from "../../app/App";
 import { BankState, BankData } from './bank.d';
-
+import queryString from 'query-string';
 
 const initialState: BankState = {
     bankData: {
@@ -21,10 +21,17 @@ export const handleBankCreation = createAsyncThunk<any, any, any>(
     'bank/create',
     async (data: BankData) => {
         try {
+            console.info(`--- BANK CREATION ---`);
             console.info(`BankData`);
             console.info(data);
+            
+            const urlToFetch = queryString.parseUrl(process.env.REACT_APP_BACK_END_BASE_URL+process.env.REACT_APP_NEW_BANK!);
 
-            const response = await fetch("http://localhost:8500/newbank", {
+            console.info('{urlToFetch,urlToFetch.url}');
+            console.info(urlToFetch.url);
+
+
+            const response = await fetch(urlToFetch.url, {
                 method: 'POST',
                 body: JSON.stringify(data),
                 headers: { "Content-Type": "application/json" }
@@ -54,10 +61,16 @@ export const handleBankUpdate = createAsyncThunk<any, any, any>(
     'bank/update',
     async (data: BankData) => {
         try {
+            console.info(`--- BANK UPDATE ---`);
             console.info(`BankData`);
             console.info(data);
 
-            const response = await fetch("http://localhost:8500/updatebank", {
+            const urlToFetch = queryString.parseUrl(process.env.REACT_APP_BACK_END_BASE_URL+process.env.REACT_APP_UPDATE_BANK!);
+
+            console.info('{urlToFetch,urlToFetch.url}');
+            console.info(urlToFetch.url);
+
+            const response = await fetch(urlToFetch.url, {
                 method: 'POST',
                 body: JSON.stringify(data),
                 headers: { "Content-Type": "application/json" }
@@ -84,8 +97,14 @@ export const getAllBanks = createAsyncThunk<any, any, any>(
     'bank/getAll',
     async (data: BankData) => {
         try {
-            console.info(`GET ALL Banks`);
-            const response = await fetch("http://localhost:8500/getAllBanks", {
+                console.info(`--- GET ALL BANKS ---`);
+
+                const urlToFetch = queryString.parseUrl(process.env.REACT_APP_BACK_END_BASE_URL+process.env.REACT_APP_GET_ALL_BANKS!);
+
+                console.info('{urlToFetch,urlToFetch.url}');
+                console.info(urlToFetch.url);
+    
+                const response = await fetch(urlToFetch.url, {
                 method: 'GET',
                 headers: { "Content-Type": "application/json" }
             });
@@ -110,8 +129,14 @@ export const getByBankId = createAsyncThunk<any, any, any>(
     'bank/getByBankId',
     async (data: BankData) => {
         try {
-            console.info(`GET By Bank ID`);
-            const response = await fetch(`http://localhost:8500/getById/${data.bankId}`, {
+            console.info(`--- GET BANK BY ID ---`);
+
+            const urlToFetch = queryString.parseUrl(process.env.REACT_APP_BACK_END_BASE_URL+process.env.REACT_APP_GET_BANK_BY_ID!+`/${data.bankId}`);
+
+            console.info('{urlToFetch,urlToFetch.url}');
+            console.info(urlToFetch.url);
+            
+            const response = await fetch(urlToFetch.url, {
                 method: 'GET',
                 headers: { "Content-Type": "application/json" }
             });
@@ -136,8 +161,14 @@ export const deleteBankById = createAsyncThunk<any, any, any>(
     'bank/deleteById',
     async (data: BankData) => {
         try {
-            console.info(`DELETE Bank By ID`);
-            const response = await fetch(`http://localhost:8500/deleteBank/${data.bankId}`, {
+            console.info(`--- DELETE BANK BY ID ---`);
+
+            const urlToFetch = queryString.parseUrl(process.env.REACT_APP_BACK_END_BASE_URL+process.env.REACT_APP_DELETE_BANK!+`/${data.bankId}`);
+
+            console.info('{urlToFetch,urlToFetch.url}');
+            console.info(urlToFetch.url);
+            
+            const response = await fetch(urlToFetch.url, {
                 method: 'DELETE',
                 headers: { "Content-Type": "application/json" }
             });

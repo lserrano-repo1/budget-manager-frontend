@@ -83,7 +83,18 @@ export const handleAccountCreation = createAsyncThunk<any, any, any>(
         try {
 
             // STEP 1 - CREATE ACCOUNT 
-            console.info(`- Account Create @ handleAccountCreation -`);
+            /*This adjustment considers the trigger 
+            in the database to avoid ammount duplicity*/
+            const adjustedAccountData: AccountData = {
+                accBalance: '0.0',
+                accNumber: dataIn.accNumber,
+                bnkId: dataIn.bnkId,
+                curId: dataIn.curId,
+                usrId: dataIn.usrId
+            }
+
+
+            console.info(`- STEP1 ::: Account Create @ handleAccountCreation -`);
             const urlToFetch = queryString.parseUrl(process.env.REACT_APP_BACK_END_BASE_URL+process.env.REACT_APP_ACCOUNT_CREATE! );
 
             console.info('{urlToFetch,urlToFetch.url}');
@@ -94,7 +105,7 @@ export const handleAccountCreation = createAsyncThunk<any, any, any>(
 
             const response = await fetch(urlToFetch.url, {
                 method: 'POST',
-                body: JSON.stringify(dataIn),
+                body: JSON.stringify(adjustedAccountData),
                 headers: { "Content-Type": "application/json" }
             });
 
@@ -103,11 +114,13 @@ export const handleAccountCreation = createAsyncThunk<any, any, any>(
             console.log(jsonResp);
 
 
-            // STEP 2 - CREATE AN INCOME TRANSACTION FOR RECENTLY CRATED ACCOUNT
+            // STEP 2 - CREATE AN INCOME TRANSACTION FOR NEWLY CRATED ACCOUNT
+            console.info(`- STEP2 ::: WRITE TRANSACTION RECORD -`);
             let trnId:string='';
             let tranMessage:string='';
             if(jsonResp.accId!==undefined && jsonResp.accId!==''){
 
+               
                 //Create transference data object
                 const dstAccountData:TransferenceData = {
                     accId: jsonResp.accId,
@@ -120,6 +133,8 @@ export const handleAccountCreation = createAsyncThunk<any, any, any>(
 
             
                 console.info(`-  Transference transaction Create @ handleAccountCreation -`);
+                console.info(":: ACCOUNT TRANSACTION DATA ::");
+                console.info(dstAccountData);
                 const dstUrlToFetch = queryString.parseUrl(process.env.REACT_APP_BACK_END_BASE_URL+process.env.REACT_APP_TRANSACTION_CREATE! );
     
                 console.info('{dstUrlToFetch,dstUrlToFetch.url}');

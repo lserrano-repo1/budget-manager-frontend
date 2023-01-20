@@ -19,7 +19,7 @@ const Dashboard = (props: DashboardProps) => {
 
    useEffect(()=>{
         dispatch(getAllAccounts(null));
-   },[]);
+   },[props.dashb.accList]);
 
 
 
