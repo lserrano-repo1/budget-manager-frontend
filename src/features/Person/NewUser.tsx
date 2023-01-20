@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { RootState } from '../../app/store';
 import { useAppDispatch } from '../../app/hooks';
 import { PersonProps, PersonCreateData } from './person.d';
 import BaseLayout from '../../component/Layout/BaseLayout';
-import { Button, Grid, Box, Typography, FormControl } from '@mui/material';
+import { Button, Grid, Box, Typography, FormControl, Alert } from '@mui/material';
 import { handleInputValue, handleNewUserCreation, handleUserLogOut } from './personSlice';
 import InputField from '../../component/InputField/InputField';
 import SalutationList from '../../component/Common/salutation';
@@ -16,7 +16,23 @@ import './newUser.scss';
 const NewUserForm = (props: PersonProps) => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const [displayMessage, setDisplayMessage] = useState(false);
 
+    
+    useEffect(() => {
+        if (props.person.personData.authentication.isAuthenticated){
+            setDisplayMessage(false);
+            navigate('/dashboard', { replace: true });
+        } else if (props.person.personData.authentication.isAuthenticated===false ) 
+            {
+            setDisplayMessage(true);
+            console.error("New user creation process failed");
+        } 
+    }, [props.person.personData.authentication.isAuthenticated
+        , props.person.personData.authentication.usr_token])
+    
+    
+    
     const goToLandingPage = () => {
         navigate('/', { replace: true });
     };
@@ -29,7 +45,7 @@ const NewUserForm = (props: PersonProps) => {
             firstName: props.person.personData.firstName,
             lastName: props.person.personData.lastName,
             email: props.person.personData.loginData.email,
-            password: props.person.personData.loginData.email,
+            password: props.person.personData.loginData.password,
         };
 
         dispatch(handleNewUserCreation(data));
@@ -129,6 +145,16 @@ const NewUserForm = (props: PersonProps) => {
                         />
                     </div>
                 </FormControl>
+
+                {/** Messages */}
+                <Box id="messages-display" style={{ paddingTop: '10px' }}>
+                    {displayMessage && (
+                        <Alert severity="success">
+                            User creation process failed.
+                        </Alert>
+                    )}
+                </Box>
+
 
                 <Box id="buttons-box" className="buttons-box">
                     <ActionButton

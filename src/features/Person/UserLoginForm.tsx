@@ -98,12 +98,12 @@ const UserLoginForm = (props: PersonProps) => {
 
                 {/** Messages */}
                 <Box id="messages-display" style={{ paddingTop: '10px' }}>
-                        {displayMessage && (
-                            <Alert severity="success">
-                                Wrong credentials or user does not exist
-                            </Alert>
-                        )}
-                    </Box>
+                    {displayMessage && (
+                        <Alert severity="success">
+                            Wrong credentials or user does not exist
+                        </Alert>
+                    )}
+                </Box>
 
                 <Box id="buttons-box" className="buttons-box">
                     <ActionButton

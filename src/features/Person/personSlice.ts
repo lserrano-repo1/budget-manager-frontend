@@ -2,6 +2,7 @@ import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 import { PersonState, PersonLoginData, PersonCreateData} from "./person.d";
 import { InputChange } from "../../app/App";
+import queryString from 'query-string';
 
 const initialState:PersonState = {
     personData: {
@@ -25,10 +26,16 @@ export const handleNewUserCreation = createAsyncThunk<any,any,any>(
     'user/create',
     async(data:PersonCreateData)=>{
         try {
+            console.info(`NEW USER CREATION PROCESS`);
             console.info(`PersonCreateData`);
             console.info(data);
 
-            const response = await fetch("http://localhost:8500/newuser",{
+            const urlToFetch = queryString.parseUrl(process.env.REACT_APP_BACK_END_BASE_URL+process.env.REACT_APP_NEW_USR!);
+
+            console.info('{urlToFetch,urlToFetch.url}');
+            console.info(urlToFetch.url);
+
+            const response = await fetch(urlToFetch.url,{
                 method:'POST',
                 body:JSON.stringify(data),
                 headers:{"Content-Type":"application/json"}
@@ -63,11 +70,17 @@ export const handleUserLogin = createAsyncThunk<any,any,any>(
     "auth/login",
     async(data:PersonLoginData)=>{
         try {
-         //TODO: remove this log
+            console.info(`USER LOGIN PROCESS`);
             console.info(`data:`);
             console.info(data);
+
+            const urlToFetch = queryString.parseUrl(process.env.REACT_APP_BACK_END_BASE_URL+process.env.REACT_APP_USR_LOGIN!);
+
+            console.info('{urlToFetch,urlToFetch.url}');
+            console.info(urlToFetch.url);
             
-            const response = await fetch("http://localhost:8500/login",
+
+            const response = await fetch(urlToFetch.url,
             {
                 method:'POST',
                 body:JSON.stringify(data), 
@@ -76,7 +89,7 @@ export const handleUserLogin = createAsyncThunk<any,any,any>(
 
             const jsonResp = await response.json();
             
-            //TODO: remove this log
+            
             console.log(`jsonResp:`);
             console.log(jsonResp);
             
@@ -99,8 +112,6 @@ export const handleUserLogin = createAsyncThunk<any,any,any>(
                 }
             }
 
-            
-            
         } catch (error) {
             console.error('Error ocurred while trying to login: '+error);
             console.log(error);
@@ -117,14 +128,18 @@ export const personSlice = createSlice({
     reducers: {
         handleInputValue: (state: PersonState, action: PayloadAction<InputChange>) => {
             const { value, field } = action.payload;
-
             getNewValues(field, state, value);
         },
         handleUserLogOut: (state: PersonState, action: PayloadAction) => {
            
             state.personData.loginData.email = "";
+            state.personData.loginData.password="";
             state.personData.authentication.usr_token = "";
             state.personData.authentication.isAuthenticated = null;
+            state.personData.firstName="";
+            state.personData.lastName="";
+            state.personData.salutation="";
+            
         },
     },
     extraReducers:(builder)=> {
@@ -142,9 +157,13 @@ export const personSlice = createSlice({
             const {email, usr_token, isAuthenticated} = action.payload;
             console.log("REJECTED Response for handleUserLogin..." + action.payload);
             console.log(action.payload);
-            state.personData.loginData.email=email;
-            state.personData.authentication.usr_token='';
-            state.personData.authentication.isAuthenticated=false;
+            state.personData.loginData.email = "";
+            state.personData.loginData.password="";
+            state.personData.authentication.usr_token = "";
+            state.personData.authentication.isAuthenticated = null;
+            state.personData.firstName="";
+            state.personData.lastName="";
+            state.personData.salutation="";
         })
         .addCase(handleNewUserCreation.fulfilled, (state:PersonState, action:PayloadAction<any>)=>{
             const {email, usr_token, isAuthenticated} = action.payload;
@@ -171,7 +190,7 @@ function getNewValues(field: string, state: PersonState, value: string) {
             state.personData.loginData.password = value;
             break;
         case 'salutation-text-field':
-            state.personData.salutation    = value;
+            state.personData.salutation = value;
             break;
         case 'firstName-text-field':
             state.personData.firstName=value;
