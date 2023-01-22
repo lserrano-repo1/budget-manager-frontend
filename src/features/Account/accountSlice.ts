@@ -7,6 +7,7 @@ import { AccountProps
     , LoadDDLValuesData } from './account.d';
 import {TransferenceData} from '../Transfer/transference.d';
 import queryString from 'query-string';
+import { RootState } from "../../app/store";
 
 
 
@@ -317,5 +318,5 @@ function getNewValues(field: string, state: AccountState, value: string) {
 
 
 export const { handleInputValue, setMode } = accountSlice.actions;
-
+export const accountList = (state:RootState) => state.accountReducer.accountList;
 export default accountSlice.reducer;

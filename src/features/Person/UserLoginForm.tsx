@@ -47,6 +47,7 @@ const UserLoginForm = (props: PersonProps) => {
         const data: PersonLoginData = {
             email: props.person.personData.loginData.email,
             password: props.person.personData.loginData.password,
+            password2: props.person.personData.loginData.password,
         };
 
         dispatch(handleUserLogin(data));

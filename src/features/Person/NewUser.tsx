@@ -46,6 +46,7 @@ const NewUserForm = (props: PersonProps) => {
             lastName: props.person.personData.lastName,
             email: props.person.personData.loginData.email,
             password: props.person.personData.loginData.password,
+            password2: props.person.personData.loginData.password2,
         };
 
         dispatch(handleNewUserCreation(data));
@@ -144,6 +145,25 @@ const NewUserForm = (props: PersonProps) => {
                             }
                         />
                     </div>
+
+                    <div id="password2-input-div" className="field-item">
+                        <InputField
+                            id="pswrd2"
+                            name="pswrd2"
+                            type="password"
+                            label="Repeat password"
+                            value={props.person.personData.loginData.password2}
+                            inputFieldContainerStyle={{ width: '400px' }}
+                            onChange={(e: any) =>
+                                props.handleInputValue({
+                                    value: e.target.value,
+                                    field: e.target.name,
+                                })
+                            }
+                        />
+                    </div>
+
+
                 </FormControl>
 
                 {/** Messages */}

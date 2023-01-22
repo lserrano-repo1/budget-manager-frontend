@@ -9,23 +9,28 @@ import { RootState } from '../../app/store';
 import {connect } from 'react-redux';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { usr_token } from '../../features/Person/personSlice';
+import {accountList} from '../../features/Account/accountSlice';
 import { useNavigate } from 'react-router-dom';
 import './dashboard.scss';
 
 const Dashboard = (props: DashboardProps) => {
     const navigate = useNavigate();
     const usrToken = useAppSelector(usr_token);
+    const accountsCollection = useAppSelector(accountList);
     const dispatch = useAppDispatch();
 
+    /*
    useEffect(()=>{
         dispatch(getAllAccounts(null));
-   },[props.dashb.accList]);
-
+   },[accountsCollection]);
+*/
 
 
     useEffect(() => {
         if(usrToken==="") {
             navigate('/login', { replace: true });
+        }else {
+            dispatch(getAllAccounts(null));
         }
     }, [usrToken]);
 
@@ -55,12 +60,13 @@ const Dashboard = (props: DashboardProps) => {
                         md={10}
                         lg={10}
                         id="data-container"
-                        /*style={{backgroundColor:'lime'}}*/
+                        
                         className="data-container">
-                        <Box id="data-container-box">
+                        <Box id="data-container-box" >
 
                        
-                            <TableContainer id="data-table-container" component={Paper}>
+                            <TableContainer id="data-table-container" component={Paper}
+                             style={{height:'550px'}}>
                                 <Table
                                     sx={{ minWidth: 650 }}
                                     aria-label="simple table">

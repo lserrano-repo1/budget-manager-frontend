@@ -10,6 +10,7 @@ export interface PersonState {
 export interface PersonLoginData {
     email:string;
     password:string;
+    password2:string;
 };
 
 export interface PersonCreateData {
@@ -18,6 +19,7 @@ export interface PersonCreateData {
     lastName:string;
     email:string;
     password:string;
+    password2:string;
 }
 
 export interface AuthenticationInfo {
